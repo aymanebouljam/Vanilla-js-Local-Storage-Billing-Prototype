@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O.N.E.P</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="d-flex justify-content-center align-items-center">
+    <div class="container d-flex pt-4 justify-content-between">
+        <div class=" sidebar card border-0 shadow d-flex flex-column align-items-center pt-4 px-3 w-25">
+            <h2>Menu</h2>
+            <ul class="d-flex flex-column w-100 p-3">
+                <li><a href="index.html">Accueil</a></li>
+                <hr>
+                <li><a href="formulaire.html">Créer un devis</a></li>
+                <hr>
+                <li><a href="table.html">Modifier une pièce</a></li>
+                <hr>
+            </ul>
+        </div>
+        <div class="card border-0 shadow w-75 h-100 ms-5">
+           <div class="card-body p-4">
+            <div class="d-flex align-items-center justify-content-between px-3">
+                <input type="search" class="form-control form-control-lg my-4 w-50" placeholder="Recherche" oninput="filterTable(event)">
+                <button type="button" class="btn btn-outline-light btn-lg" onclick="handleTable()">Valider</button>
+            </div>
+            <table class="table table-bordered table-success table-responsive table-striped table-hover text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Designation</th>
+                        <th>Prix Unitaire</th>
+                        <th>Quantité</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    
+                </tbody>
+            </table>
+        </div>
+           </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <script src="script.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
