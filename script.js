@@ -51,9 +51,12 @@ const tdevis = document.getElementById("tableDevis");
 const nom = document.getElementById("nom");
 const prénom= document.getElementById("prénom");
 const objet = document.getElementById("objet");
-const typeBranch = document.getElementById("typeBranch");
 const quantité = document.getElementById("quantité");
 const checkbox = document.getElementsByClassName("checkbox");
+const compteurContainer = document.getElementById("compteur-container");
+const policeContainer = document.getElementById("police-container");
+const typeContainer = document.getElementById("type-container");
+const form = document.getElementById("facture");
 //fetch table
 const fetchData = (liste) =>{
    if(tbody){
@@ -65,7 +68,7 @@ const fetchData = (liste) =>{
                         <td>${item.designation}</td>
                         <td>${item.prix_unitaire}</td>
                         <td>
-                            <input type="number" id="quantité" value="0" min="0" class="form-control border border-dark w-50 mx-auto">
+                            <input type="number" id="quantité" value="0" min="0" class="form-control border border-dark w-25 mx-auto">
                         </td>
                         <td><input type="checkbox" class="checkbox form-check-input border border-3 border-dark" id ="checkbox" onclick="handleCheck(this)"></td>
                     </tr>
@@ -91,36 +94,64 @@ const filterTable = (event) => {
 };
 
 //handle select
-
 const handleSelect = (event) => {
     const selected = event.target.value;
+    typeContainer.innerHTML = "";
+    policeContainer.innerHTML = "";
+    compteurContainer.innerHTML = "";
+
     if(selected === "nouveau branchement"){
-        typeBranch.innerHTML = `
-            <option value="">-- Type de Branchement --</option>
-            <option value="branchement 20">Branchement 20</option>
-            <option value="branchement 25">Branchement 25</option>
-            <option value="branchement 50">Branchement 50</option>
+        typeContainer.innerHTML = `
+            <select class="form-control border-2"  id="typeBranch" required>
+                <option value="">-- Type de Branchement --</option>
+                <option value="branchement 25">Branchement 25</option>
+                <option value="branchement 50">Branchement 50</option>
+            </select>
         `;
+        compteurContainer.innerHTML = `
+            <label class="form-label fs-5">Nombre de compteurs :</label>
+            <input type="number" value="0" min="0" id="compteur" class="form-control w-25" required>
+        `;
+
     }else if(selected === "modification de branchement"){
-        typeBranch.innerHTML = `
-        <option value="">-- Type de Branchement --</option>
-        <option value="branchement 20/25">Modification 20 => 25</option>
-        <option value="branchement 20/50">Modification 20 => 50</option>
-        <option value="branchement 25/50">Modification 25 => 50</option>
+        typeContainer.innerHTML = `
+        <select class="form-control border-2"  id="typeBranch" required>
+            <option value="">-- Type de Branchement --</option>
+            <option value="branchement 20/25">Modification 20 => 25</option>
+            <option value="branchement 20/50">Modification 20 => 50</option>
+            <option value="branchement 25/50">Modification 25 => 50</option>
+        </select>
     `;
+        compteurContainer.innerHTML = `
+            <label class="form-label fs-5">Nombre de compteurs :</label>
+            <input type="number" value="0" min="0" id="compteur" class="form-control w-25" required>
+        `;
+        policeContainer.innerHTML = ` 
+            <input type="text" placeholder="N° de Police" class="form-control" id="police" required>
+        `;
     }
 }
 
 //handle Form
-
 const handleForm = (event) => {
     event.preventDefault();
     localStorage.removeItem("data");
+    const typeBranch = document.getElementById("typeBranch");
+    const compteur = document.getElementById("compteur");
+    const police = document.getElementById("police");
+
+    if(compteur && Number(compteur.value) == 0){
+        alert("Veuillez saisir le nombre des compteurs");
+        return;
+    };
+
     const formData = {
-        [nom.id] : nom.value,
-        [prénom.id] : prénom.value,
-        [objet.id] : objet.value,
-        [typeBranch.id] : typeBranch.value,
+        nom : nom.value,
+        prénom : prénom.value,
+        objet : objet.value,
+        typeBranch : typeBranch ? typeBranch.value : "",
+        police : police ? police.value : "",
+        compteur : compteur ? compteur.value : "",
     }
     localStorage.setItem("data", JSON.stringify(formData));
     window.location.href = "table.html";
