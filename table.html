@@ -6,6 +6,7 @@
     <title>O.N.E.P</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 </head>
 <body class="d-flex justify-content-center align-items-center">
     <div class="container d-flex pt-4 justify-content-between">
@@ -22,25 +23,25 @@
         </div>
         <div class="card border-0 shadow w-75 h-100 ms-5">
            <div class="card-body p-4">
-            <div class="d-flex align-items-center justify-content-between px-3">
-                <input type="search" class="form-control form-control-lg my-4 w-50" placeholder="Recherche" oninput="filterTable(event)">
-                <button type="button" class="btn btn-outline-light btn-lg" onclick="handleTable()">Valider</button>
+                <div class="px-3">
+                    <!-- <input type="search" class="form-control form-control-lg my-4 w-50" placeholder="Recherche" oninput="filterTable(event)" id="searchBox""> -->
+                    <button type="button" class="btn btn-outline-light btn-lg d-block my-3 ms-auto" onclick="handleTable()">Valider</button>
+                </div>
+                <table class="table table-bordered table-secondary table-responsive table-striped table-hover text-center my-4" id="piècesTable">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Designation</th>
+                            <th>Prix Unitaire</th>
+                            <th>Quantité</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        
+                    </tbody>
+                </table>
+                <div class="d-flex align-items-center justify-content-evenly w-75 mx-auto" id="pagination"></div>
             </div>
-            <table class="table table-bordered table-secondary table-responsive table-striped table-hover text-center">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Designation</th>
-                        <th>Prix Unitaire</th>
-                        <th>Quantité</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    
-                </tbody>
-            </table>
-        </div>
-           </div>
         </div>
     </div>
 
@@ -49,7 +50,9 @@
 
 
 
-    <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
