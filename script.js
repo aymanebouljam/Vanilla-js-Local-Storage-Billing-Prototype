@@ -1,46 +1,46 @@
-// const data = [
-//     { "designation": "Collier AC PVC 60*20", "prix_unitaire": 75.01 },
-//     { "designation": "Collier AC PVC 63*20", "prix_unitaire": 65.03 },
-//     { "designation": "Collier AC PVC 80*40", "prix_unitaire": 72.81 },
-//     { "designation": "Collier AC PVC 60*40", "prix_unitaire": 70.04 },
-//     { "designation": "Collier AC PVC 100*40", "prix_unitaire": 79.39 },
-//     { "designation": "Collier AC PVC 110*40", "prix_unitaire": 75.99 },
-//     { "designation": "Robinet PEC 20*3/4", "prix_unitaire": 139.85 },
-//     { "designation": "Robinet PEC 40*1*1/2", "prix_unitaire": 310.86 },
-//     { "designation": "Tuyau Poly HD 10b40", "prix_unitaire": 3.87 },
-//     { "designation": "Tuyau Poly HD 10b25", "prix_unitaire": 3.81 },
-//     { "designation": "Tuyau Poly HD 10b20", "prix_unitaire": 7.5 },
-//     { "designation": "Couvercle tabernacle", "prix_unitaire": 7.5 },
-//     { "designation": "Tube PVC 6K DN 75", "prix_unitaire": 52.09 },
-//     { "designation": "Bouche à clef", "prix_unitaire": 19.90 },
-//     { "designation": "Porte de niche GM", "prix_unitaire": 136.36 },
-//     { "designation": "Raccord SRM L 25*1/2", "prix_unitaire": 21.58 },
-//     { "designation": "Raccord SRM L 25*3/4", "prix_unitaire": 19.56 },
-//     { "designation": "Raccord SRM L 50*1*1/2", "prix_unitaire": 123.09 },
-//     { "designation": "Robinet Arrêt TCE 1/2", "prix_unitaire": 42.00 },
-//     { "designation": "Raccord compteur 1/5", "prix_unitaire": 12.50 },
-//     { "designation": "Vanne Bronze FI 1/2", "prix_unitaire": 86.70 },
-//     { "designation": "Coude SRM 50*1*1/4", "prix_unitaire": 131.70 },
-//     { "designation": "Mamelon double Lait 1/2", "prix_unitaire": 8.29 },
-//     { "designation": "Clapet RE 1/2", "prix_unitaire": 68.49 },
-//     { "designation": "Clapet RE 1*1/4", "prix_unitaire": 74.43 },
-//     { "designation": "Clapet RE 1*1/2", "prix_unitaire": 155.77 },
-//     { "designation": "Confection de Niche GM", "prix_unitaire": 155.77 },
-//     { "designation": "Pose Tuyau pol HD 25", "prix_unitaire": 26.70 },
-//     { "designation": "POSE Appareils", "prix_unitaire": 133.56 },
-//     { "designation": "Installation de la prise", "prix_unitaire": 191.37 }
-// ]
-// ;
-
-const data =
-[
+const data = [
     { "designation": "Collier AC PVC 60*20", "prix_unitaire": 75.01 },
+    { "designation": "Collier AC PVC 63*20", "prix_unitaire": 65.03 },
     { "designation": "Collier AC PVC 80*40", "prix_unitaire": 72.81 },
+    { "designation": "Collier AC PVC 60*40", "prix_unitaire": 70.04 },
+    { "designation": "Collier AC PVC 100*40", "prix_unitaire": 79.39 },
+    { "designation": "Collier AC PVC 110*40", "prix_unitaire": 75.99 },
     { "designation": "Robinet PEC 20*3/4", "prix_unitaire": 139.85 },
     { "designation": "Robinet PEC 40*1*1/2", "prix_unitaire": 310.86 },
     { "designation": "Tuyau Poly HD 10b40", "prix_unitaire": 3.87 },
     { "designation": "Tuyau Poly HD 10b25", "prix_unitaire": 3.81 },
-];
+    { "designation": "Tuyau Poly HD 10b20", "prix_unitaire": 7.5 },
+    { "designation": "Couvercle tabernacle", "prix_unitaire": 7.5 },
+    { "designation": "Tube PVC 6K DN 75", "prix_unitaire": 52.09 },
+    { "designation": "Bouche à clef", "prix_unitaire": 19.90 },
+    { "designation": "Porte de niche GM", "prix_unitaire": 136.36 },
+    { "designation": "Raccord SRM L 25*1/2", "prix_unitaire": 21.58 },
+    { "designation": "Raccord SRM L 25*3/4", "prix_unitaire": 19.56 },
+    { "designation": "Raccord SRM L 50*1*1/2", "prix_unitaire": 123.09 },
+    { "designation": "Robinet Arrêt TCE 1/2", "prix_unitaire": 42.00 },
+    { "designation": "Raccord compteur 1/5", "prix_unitaire": 12.50 },
+    { "designation": "Vanne Bronze FI 1/2", "prix_unitaire": 86.70 },
+    { "designation": "Coude SRM 50*1*1/4", "prix_unitaire": 131.70 },
+    { "designation": "Mamelon double Lait 1/2", "prix_unitaire": 8.29 },
+    { "designation": "Clapet RE 1/2", "prix_unitaire": 68.49 },
+    { "designation": "Clapet RE 1*1/4", "prix_unitaire": 74.43 },
+    { "designation": "Clapet RE 1*1/2", "prix_unitaire": 155.77 },
+    { "designation": "Confection de Niche GM", "prix_unitaire": 155.77 },
+    { "designation": "Pose Tuyau pol HD 25", "prix_unitaire": 26.70 },
+    { "designation": "POSE Appareils", "prix_unitaire": 133.56 },
+    { "designation": "Installation de la prise", "prix_unitaire": 191.37 }
+]
+;
+
+// const data =
+// [
+//     { "designation": "Collier AC PVC 60*20", "prix_unitaire": 75.01 },
+//     { "designation": "Collier AC PVC 80*40", "prix_unitaire": 72.81 },
+//     { "designation": "Robinet PEC 20*3/4", "prix_unitaire": 139.85 },
+//     { "designation": "Robinet PEC 40*1*1/2", "prix_unitaire": 310.86 },
+//     { "designation": "Tuyau Poly HD 10b40", "prix_unitaire": 3.87 },
+//     { "designation": "Tuyau Poly HD 10b25", "prix_unitaire": 3.81 },
+// ];
 const fraisInterv = 0.15;
 const TVA = 0.20;
 // Elements
@@ -87,11 +87,11 @@ const fetchData = (liste) =>{
 window.onload = fetchData(data);
 
 //Filter table
-const filterTable = (event) => {
-    const searched = event.target.value.trim();
-    const filtered = data.filter(item => item.designation.toLowerCase().includes(searched.toLowerCase()));
-    fetchData(filtered);
-};
+// const filterTable = (event) => {
+//     const searched = event.target.value.trim();
+//     const filtered = data.filter(item => item.designation.toLowerCase().includes(searched.toLowerCase()));
+//     fetchData(filtered);
+// };
 
 //handle select
 const handleSelect = (event) => {
@@ -175,6 +175,75 @@ const handleTable = () => {
         window.location.href = "devis.html";
     }
 };
+
+// Pagination
+
+// function pagination() {
+//     const rowsPerPage = 3; 
+//     const table = document.getElementById("piècesTable").getElementsByTagName("tbody")[0];
+//     let allRows = table.getElementsByTagName("tr");
+//     let currentPage = 1;
+
+//     function getFilteredRows() {
+//         return [...allRows].filter(row => row.style.display !== "none"); 
+//     }
+
+//     function showPage(page) {
+//         let filteredRows = getFilteredRows();
+//         let start = (page - 1) * rowsPerPage;
+//         let end = start + rowsPerPage;
+
+//         filteredRows.forEach((row, index) => {
+//             row.style.display = index >= start && index < end ? "" : "none";
+//         });
+//     }
+
+//     function createPagination() {
+//         let filteredRows = getFilteredRows();
+//         let pageCount = Math.ceil(filteredRows.length / rowsPerPage);
+//         let pagination = document.getElementById("pagination");
+//         pagination.innerHTML = "";
+
+//         for (let i = 1; i <= pageCount; i++) {
+//             let btn = document.createElement("button");
+//             btn.textContent = i;
+//             btn.onclick = () => { currentPage = i; showPage(i); };
+//             btn.classList.add('btn', 'btn-secondary', 'btn-md');
+//             pagination.appendChild(btn);
+//         }
+//     }
+
+//     showPage(currentPage);
+//     createPagination();
+// }
+
+// function filterTable() {
+//     let searchText = document.getElementById("searchBox").value.toLowerCase();
+//     let rows = document.querySelectorAll("#piècesTable tbody tr");
+
+//     rows.forEach(row => {
+//         row.style.display = ""; 
+//     });
+
+//     rows.forEach(row => {
+//         row.style.display = row.textContent.toLowerCase().includes(searchText) ? "" : "none";
+//     });
+
+//     pagination(); 
+// }
+
+// // Ensures the pagination function is called on window load
+// window.onload = pagination;
+
+$(document).ready(function() {
+    $('#piècesTable').DataTable({
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
+        }
+    });
+});
+
+
 
 //handle Check
 
