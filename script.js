@@ -72,7 +72,7 @@ const fetchData = (liste) =>{
         }else{
             tbody.innerHTML = `
                 <tr>
-                   <td colspan="3" class="fs-5">Aucune pièce correspondante trouvée</td>
+                   <td colspan="4" class="fs-5">Aucune pièce correspondante trouvée</td>
                 </tr>
             `;
         }
@@ -126,19 +126,18 @@ const handleForm = (event) => {
 
 //handle table
 
-let formData = {};
+let formData = [];
 
-const handleTable = (btn) => {
+const handleTable = () => {
     const data = JSON.parse(localStorage.getItem("data"));
     if(data){
-        // localStorage.removeItem("data");
+        localStorage.removeItem("data");
         const newData = {
             ...data,
             pièces : [
                 formData,
             ]
         }
-
         localStorage.setItem("data", JSON.stringify(newData));
     }
 };
@@ -146,8 +145,8 @@ const handleTable = (btn) => {
 //handle Check
 
 const handleCheck = (btn) => {
-    const row = btn.parentElement.parentElement;
 
+    const row = btn.parentElement.parentElement;
     const designation = row.cells[0].innerHTML;
     const prix_unitaire = row.cells[1].innerHTML;
     const quantité = row.cells[2].querySelector('input').value;
@@ -155,11 +154,10 @@ const handleCheck = (btn) => {
         window.alert("Veuillez choisir une quantité");
         row.cells[3].querySelector("input").checked = false;
     }else{
-        formData = {
-            ...formData,
+        formData.push({
             designation,
             prix_unitaire,
             quantité
-        };
+        });
     }
 };
