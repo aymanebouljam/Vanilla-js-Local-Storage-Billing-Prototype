@@ -23,28 +23,30 @@
         <div class="card border-0 shadow w-75 h-100 ms-5 px-5 py-4">
             <h3 class="text-center">Facture EG</h3>
             <hr>
-            <form onsubmit="handleForm(event)">
+            <form onsubmit="handleForm(event)" id="facture">
                 <div class="form-group my-3">
-                    <input type="text" placeholder="Nom de client" class="form-control  form-control-lg border-2" id="nom">
+                    <input type="text" placeholder="Nom de client" class="form-control border-2" id="nom" required>
                 </div>
                 <div class="form-group my-3">
-                    <input type="text" placeholder="Prénom de client" class="form-control form-control-lg border-2" id="prénom">
+                    <input type="text" placeholder="Prénom de client" class="form-control  border-2" id="prénom" required>
                 </div>
                 <div class="form-group my-3">
-                    <select id="objet" class="form-control form-control-lg border-2" onchange="handleSelect(event)">
+                    <select id="objet" class="form-control  border-2" onchange="handleSelect(event)" required>
                         <option value="">-- Objet de Branchement --</option>
                         <option value="nouveau branchement">Nouveau Branchement</option>
                         <option value="modification de branchement">Modification de Branchement</option>
+                        <option value="déplacement de niche">Déplacement de niche</option>
                     </select>
                 </div>
-                <div class="form-group my-3">
-                    <select class="form-control form-control-lg border-2"  id="typeBranch">
-                        <option value="">-- Type de Branchement --</option>
-                    </select>
+                <div class="form-group my-3" id="type-container">
+                </div>
+                <div class="form-group my-3" id="police-container">
+                </div>
+                <div class="form-group my-3 d-flex align-items-center justify-content-evenly w-50" id="compteur-container">
                 </div>
                 <hr>
                 <div class="form-group my-3">
-                    <button type="submit" class="btn btn-outline-light btn-lg">Ajouter</button>
+                    <button type="submit" class="btn btn-outline-light">Ajouter</button>
                 </div>
             </form>
        </div>
