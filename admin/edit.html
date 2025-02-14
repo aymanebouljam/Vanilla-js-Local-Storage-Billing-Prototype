@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O.N.E.P</title>
+    <link rel="stylesheet" href="../assets/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="d-flex justify-content-center align-items-center">
+    <div class="container d-flex pt-4 justify-content-between">
+        <div class=" sidebar card border-0 shadow d-flex flex-column align-items-center pt-4 px-3 w-25">
+            <h2>Menu</h2>
+            <ul class="d-flex flex-column w-100 p-3">
+                <li><a href="../index.html">Accueil</a></li>
+                <hr>
+                <li><a href="../formulaire.html">Créer un devis</a></li>
+                <hr>
+                <li><a href="admin.html">Gérer les pièces</a></li>
+                <hr>
+            </ul>
+        </div>
+        <div class="card border-0 shadow w-75 h-100 ms-5 px-5 py-4">
+            <div class="d-flex align-items-center justify-content-between">
+                <button type="button" class="btn btn-outline-primary w-25" onlcik="window.location.href = 'admin.html';">Retourner</button>
+                <h3 class="text-center">Modifier une Pièce</h3>   
+            </div>
+            <hr>
+            <form onsubmit="editPiece(event)" id="edit-form">
+                <div class="form-group my-3">
+                    <input type="text" placeholder="Désignation" class="form-control border-2" id="désignation" required>
+                </div>
+                <div class="form-group my-3">
+                    <input type="text" placeholder="Prix Unitaire" class="form-control  border-2" id="prix_unitaire" required>
+                </div>
+                <hr>
+                <div class="form-group my-3">
+                    <button type="submit" class="btn btn-outline-dark">Modifier</button>
+                </div>
+            </form>
+       </div>
+    </div>
+
+
+
+
+
+    
+    <script src="../assets/js/jquery-3.6.0.min.js"></script>
+    <script src="../assets/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/admin/edit.js"></script>
+</body>
+</html>
