@@ -1,0 +1,43 @@
+*{
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body{
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(to left,#000039, #310031);
+}
+
+a{
+    text-decoration: none;
+    color: #000000;
+}
+
+ul li{
+    list-style: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+.card{
+    border-radius: 40px;
+    background: #d9d7d7;
+}
+.sidebar{
+    height: 300px;
+}
+input[type="text"],input[type="number"], select{
+    border: 2px solid #000 !important;
+}
+input[type="search"]:focus{
+    border: 1px solid #d3d3d3 !important;
+}
+
+.dataTables_filter {
+    margin-bottom: 15px !important; 
+}
+
+
+
+
