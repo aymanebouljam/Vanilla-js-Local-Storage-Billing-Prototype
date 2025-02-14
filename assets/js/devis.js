@@ -1,5 +1,12 @@
-//handle devis table
+//Redirect
+const checkData = () => {
+    const data = JSON.parse(localStorage.getItem("data"));
+    if(!data){
+        window.location.href = "formulaire.html";
+    }
+}
 
+//handle devis table
 const handleDevis = () => {
     const data = JSON.parse(localStorage.getItem("data"));
     const fraisInterv = 0.15;
@@ -49,9 +56,10 @@ const handleDevis = () => {
     }
    
 }
-
-window.onload = handleDevis();
-
+window.onload = () => {
+    checkData();
+    handleDevis();
+};
 
 //export excel format
 
@@ -63,9 +71,28 @@ const handleExportTable = () => {
     }
 
     const worksheet = XLSX.utils.table_to_sheet(table); 
+    
+    // Define a border style
+    const borderStyle = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' }
+    };
+
+    // Apply border to all cells in the worksheet
+    for (const cellAddress in worksheet) {
+        const cell = worksheet[cellAddress];
+        if (cell.v) { // Only apply borders to cells that contain values
+            cell.s = cell.s || {}; // Ensure there's a style object
+            cell.s.border = borderStyle;
+        }
+    }
+
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
 
     XLSX.writeFile(workbook, "facture EG.xlsx");
 };
+
 
