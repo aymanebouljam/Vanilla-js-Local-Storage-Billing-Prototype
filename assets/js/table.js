@@ -10,21 +10,35 @@ const checkData = () => {
 
 //fetch table
 const fetchData = (liste) =>{
+    const data = JSON.parse(localStorage.getItem("data"));
     const tbody = document.getElementById("tableBody");
     if(tbody){
          tbody.innerHTML = "";
          if(liste.length > 0){
              liste.forEach(item => {
-                 tbody.innerHTML += `
-                     <tr>
-                         <td>${item.designation}</td>
-                         <td>${item.prix_unitaire}</td>
-                         <td>
-                             <input type="number" id="quantité" value="0" min="0" class="form-control border border-dark w-50 mx-auto">
-                         </td>
-                         <td><input type="checkbox" class="checkbox form-check-input border border-3 border-dark" id ="checkbox" onclick="handleCheck(this)"></td>
-                     </tr>
-                 `;
+                if(item.designation.toLowerCase() === "POSE Appareils".toLowerCase()){
+                    tbody.innerHTML += `
+                    <tr>
+                        <td>${item.designation}</td>
+                        <td>${item.prix_unitaire}</td>
+                        <td>
+                            <input type="number" id="quantité" value="${data.poseAppareils}" min="0" class="form-control border border-dark w-50 mx-auto">
+                        </td>
+                        <td><input type="checkbox" class="checkbox form-check-input border border-3 border-dark" id ="checkbox" checked='true'"></td>
+                    </tr>
+                `;
+                }else{
+                    tbody.innerHTML += `
+                    <tr>
+                        <td>${item.designation}</td>
+                        <td>${item.prix_unitaire}</td>
+                        <td>
+                            <input type="number" id="quantité" value="0" min="0" class="form-control border border-dark w-50 mx-auto">
+                        </td>
+                        <td><input type="checkbox" class="checkbox form-check-input border border-3 border-dark" id ="checkbox" onclick="handleCheck(this)"></td>
+                    </tr>
+                `;
+                }
              });
          }
     }
@@ -46,11 +60,24 @@ const handleCheck = (btn) => {
         window.alert("Veuillez choisir une quantité");
         row.cells[3].querySelector("input").checked = false;
     }else{
+       if(designation.toLocaleLowerCase().includes("tuyau poly hd")){
+            const pose = piècesList.find(pièce => pièce.designation.toLocaleLowerCase().includes("pose tuyau pol hd "+designation.slice(-2)));
+            formData.push({
+                designation,
+                prix_unitaire : parseInt(prix_unitaire),
+                quantité : parseInt(quantité),
+            },{
+                designation : pose.designation,
+                prix_unitaire : parseInt(pose.prix_unitaire),
+                quantité: parseInt(quantité),
+            });
+       }else{
         formData.push({
             designation,
-            prix_unitaire,
-            quantité
+            prix_unitaire : parseInt(prix_unitaire),
+            quantité : parseInt(quantité),
         });
+       }
     }
 };
 
@@ -59,7 +86,16 @@ const handleCheck = (btn) => {
 let formData = [];
 
 const handleTable = () => {
-    if(data){
+    const data = JSON.parse(localStorage.getItem("data"));
+    const piècesList = JSON.parse(localStorage.getItem("piècesList"));
+    let prix_unitaire = 0;
+    piècesList.forEach(pièce => {
+        if(pièce.designation.toLowerCase() === "POSE Appareils".toLocaleLowerCase()){
+            prix_unitaire = pièce.prix_unitaire;
+        }
+    });
+
+    if(data && piècesList){
         if(formData.length === 0){
             window.alert("Veuillez choisir les pièces nécessaires");
             return;
@@ -69,6 +105,7 @@ const handleTable = () => {
             ...data,
             pièces : [
                 ...formData,
+                {designation : "POSE Appareils", prix_unitaire : prix_unitaire, quantité : data.poseAppareils},
             ]
         }
         localStorage.setItem("data", JSON.stringify(newData));
@@ -92,8 +129,8 @@ $(document).ready(function() {
                 "sEmptyTable": "Aucune donnée disponible dans le tableau",
                 "oPaginate": {
                     "sFirst": "Premier",
-                    "sPrevious": "Précédent",
-                    "sNext": "Suivant",
+                    "sPrevious": "<",
+                    "sNext": ">",
                     "sLast": "Dernier"
                     }
         },
