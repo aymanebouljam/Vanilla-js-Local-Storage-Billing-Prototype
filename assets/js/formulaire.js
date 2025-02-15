@@ -20,8 +20,8 @@ const handleSelect = (event) => {
         typeContainer.innerHTML = `
             <select class="form-control border-2"  id="typeBranch" required>
                 <option value="">-- Type de Branchement --</option>
-                <option value="branchement 25">Branchement 25</option>
-                <option value="branchement 50">Branchement 50</option>
+                <option value="branchement 3/4">Branchement 25</option>
+                <option value="branchement 1 1/2">Branchement 50</option>
             </select>
         `;
         compteurContainer.innerHTML = `
@@ -33,9 +33,9 @@ const handleSelect = (event) => {
         typeContainer.innerHTML = `
         <select class="form-control border-2"  id="typeBranch" required>
             <option value="">-- Type de Branchement --</option>
-            <option value="branchement 20/25">Modification 20 => 25</option>
-            <option value="branchement 20/50">Modification 20 => 50</option>
-            <option value="branchement 25/50">Modification 25 => 50</option>
+            <option value="modification de branchement de 1/2 à 3/4">Modification 20 => 25</option>
+            <option value="modification de branchement de 1/2 à 1 1/2">Modification 20 => 50</option>
+            <option value="modification de branchement de 3/4 à 1 1/2">Modification 25 => 50</option>
         </select>
     `;
         compteurContainer.innerHTML = `
@@ -65,9 +65,10 @@ const handleForm = (event) => {
         nom : nom.value,
         prénom : prénom.value,
         objet : objet.value,
-        typeBranch : typeBranch ? typeBranch.value : "",
+        typeBranch : typeBranch ? typeBranch.value : "déplacement de la niche",
         police : police ? police.value : "",
-        compteur : compteur ? compteur.value : "",
+        compteur : compteur ? compteur.value : 1,
+        poseAppareils : compteur ? parseInt(compteur.value)+ 1 : 2,
     }
     localStorage.setItem("data", JSON.stringify(formData));
     window.location.href = "table.html";
