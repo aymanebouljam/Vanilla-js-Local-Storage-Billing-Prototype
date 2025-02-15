@@ -9,6 +9,7 @@ const checkData = () => {
 //handle devis table
 const handleDevis = () => {
     const data = JSON.parse(localStorage.getItem("data"));
+    const installation = 191.37;
     const fraisInterv = 0.15;
     const TVA = 0.20;
     const tdevis = document.getElementById("tableDevis");
@@ -24,30 +25,49 @@ const handleDevis = () => {
                     <td>${item.designation}</td>
                     <td>${item.prix_unitaire}</td>
                     <td>${item.quantité}</td>
-                    <td>${Number(item.prix_unitaire) * Number(item.quantité)}</td>
+                    <td>${(Number(item.prix_unitaire) * Number(item.quantité)).toFixed(2)}</td>
                 </tr>
             `;
                 somme += Number(item.prix_unitaire) * Number(item.quantité);
             });
-    
             const frais_intervention = somme * fraisInterv;
             const montant_tva = (somme + (somme * fraisInterv)) * TVA;
     
              tdevis.innerHTML += `
                 <tr>
-                    <td colspan="3">Total HT</td>
+                    <td>Installation de la prise</td>
+                    <td>1</td>
+                    <td>${installation}</td>
+                    <td>${installation}</td>
+                </tr>
+                <tr>
+                    <td>Total HT</td>
+                    <td></td>
+                    <td></td>
                     <td>${somme.toFixed(2)}</td>
                 </tr>
                 <tr>
-                    <td colspan="3">Frais d'intervention (15%)</td>
+                    <td>Frais d'intervention (15%)</td>
+                    <td></td>
+                    <td></td>
                     <td>${frais_intervention.toFixed(2)}</td>
                 </tr>
-                <tr>
-                    <td colspan="3">T.V.A 20%</td>
+                 <tr>
+                    <td>T.V.A 20%</td>
+                    <td></td>
+                    <td></td>
                     <td>${montant_tva.toFixed(2)}</td>
                 </tr>
+                 <tr>
+                    <td>Taxe riveraine</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
                 <tr>
-                    <td colspan="3">TOTAL GENERAL TTC</td>
+                    <td>TOTAL GENERAL TTC</td>
+                    <td></td>
+                    <td></td>
                     <td>${(somme + frais_intervention + montant_tva).toFixed(2)}</td>
                 </tr>
              `;
@@ -63,36 +83,83 @@ window.onload = () => {
 
 //export excel format
 
-const handleExportTable = () => {
+function handleExportTable() {
+    const data = JSON.parse(localStorage.getItem("data"));
     const table = document.getElementById("dataTable");
-    if (!table) {
-        alert("Table not found!");
+    const nom = data.nom;
+    const prénom = data.prénom;
+    const police = data.police;
+    const typeBranch = data.typeBranch;
+    const compteur = data.compteur;
+    const nourice = typeBranch === "déplacement de la niche" ? "" : `nourice à ${compteur} compteurs`;
+
+    if (!data) {
+        alert("Veuillez Créer un devis!");
         return;
     }
 
-    const worksheet = XLSX.utils.table_to_sheet(table); 
-    
-    // Define a border style
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet("Facture EG");
+
     const borderStyle = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' }
+        top: { style: "medium" },
+        left: { style: "medium" },
+        bottom: { style: "medium" },
+        right: { style: "medium" }
     };
 
-    // Apply border to all cells in the worksheet
-    for (const cellAddress in worksheet) {
-        const cell = worksheet[cellAddress];
-        if (cell.v) { // Only apply borders to cells that contain values
-            cell.s = cell.s || {}; // Ensure there's a style object
-            cell.s.border = borderStyle;
-        }
-    }
+    const globalFont = { size: 14, bold: false };
 
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
+    // Add header information (leaves empty rows to separate from the table)
+    const headers = [
+        ["ROYAUME DU MAROC"],
+        ["Facture EG N°"],
+        ["OFFICE NATIONAL DE L'ELECTRICITE ET DE L'EAU POTABLE"],
+        ["BOUIZAKARNE LE :"],
+        ["BRANCHE EAU"],
+        ["DIRECTION REGIONALE: GUELMIM"],
+        ["CENTRE: BOUIZAKARNE"],
+        ["C.C.P.N°: 106-28-C"],
+        [`OBJET: ${typeBranch.toUpperCase()} ${nourice}`],
+        [`(Nom du Tiers): ${nom.toUpperCase()} ${prénom.toUpperCase()}`],
+        [`POLICE: ${police}`],
+        [""], 
+        [""], 
+    ];
 
-    XLSX.writeFile(workbook, "facture EG.xlsx");
-};
+    headers.forEach((text, rowIndex) => {
+        const row = worksheet.addRow(text);
+        row.font = globalFont;
+        worksheet.mergeCells(`A${rowIndex + 1}:D${rowIndex + 1}`);
+        row.getCell(1).alignment = { horizontal: "left" };
+    });
+
+    // Add table data (starting after header + extra empty rows)
+    let tableStartRow = headers.length + 1;
+    const rows = table.querySelectorAll("tr");
+    
+    rows.forEach((row) => {
+        const cells = row.querySelectorAll("td, th");
+        const excelRow = worksheet.addRow([...cells].map(cell => cell.innerText));
+
+        // Apply border to each cell in the row
+        cells.forEach((_, colIndex) => {
+            const cell = excelRow.getCell(colIndex + 1);
+            cell.border = borderStyle; 
+            cell.font = globalFont; 
+            cell.alignment = { horizontal: "center", vertical: "middle" };
+        });
+    });
+
+    // Adjust column widths
+    worksheet.columns.forEach(col => {
+        col.width = 35;
+    });
+
+    workbook.xlsx.writeBuffer().then((buffer) => {
+        const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+        saveAs(blob, "facture_EG.xlsx");
+    });
+}
 
 
