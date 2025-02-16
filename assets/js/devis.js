@@ -54,8 +54,8 @@ const handleDevis = () => {
              tdevis.innerHTML += `
                 <tr>
                     <td>Installation de la prise</td>
-                    <td>1</td>
                     <td>${installationPrise}</td>
+                    <td>1</td>
                     <td>${installationPrise}</td>
                 </tr>
                 <tr>
@@ -65,13 +65,13 @@ const handleDevis = () => {
                     <td>${somme.toFixed(2)}</td>
                 </tr>
                 <tr>
-                    <td>Frais d'intervention (15%)</td>
+                    <td>Frais d'intervention (${frais_intervention * 10}%)</td>
                     <td></td>
                     <td></td>
                     <td>${intervention.toFixed(2)}</td>
                 </tr>
                  <tr>
-                    <td>T.V.A 20%</td>
+                    <td>T.V.A ${tva * 10}%</td>
                     <td></td>
                     <td></td>
                     <td>${montant_tva.toFixed(2)}</td>
@@ -131,7 +131,6 @@ function handleExportTable() {
 
     const globalFont = { size: 14, bold: false };
 
-    // Add header information (leaves empty rows to separate from the table)
     const headers = [
         ["ROYAUME DU MAROC"],
         ["Facture EG N°"],
@@ -155,7 +154,6 @@ function handleExportTable() {
         row.getCell(1).alignment = { horizontal: "left" };
     });
 
-    // Add table data (starting after header + extra empty rows)
     let tableStartRow = headers.length + 1;
     const rows = table.querySelectorAll("tr");
     
@@ -163,7 +161,6 @@ function handleExportTable() {
         const cells = row.querySelectorAll("td, th");
         const excelRow = worksheet.addRow([...cells].map(cell => cell.innerText));
 
-        // Apply border to each cell in the row
         cells.forEach((_, colIndex) => {
             const cell = excelRow.getCell(colIndex + 1);
             cell.border = borderStyle; 
@@ -172,7 +169,6 @@ function handleExportTable() {
         });
     });
 
-    // Adjust column widths
     worksheet.columns.forEach(col => {
         col.width = 35;
     });
