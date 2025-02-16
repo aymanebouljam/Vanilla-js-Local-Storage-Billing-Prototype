@@ -15,31 +15,19 @@ const fetchData = (liste) =>{
     if(tbody){
          tbody.innerHTML = "";
          if(liste.length > 0){
-             liste.forEach(item => {
-                if(item.designation.toLowerCase() === "POSE Appareils".toLowerCase()){
-                    tbody.innerHTML += `
-                    <tr>
-                        <td>${item.designation}</td>
-                        <td>${item.prix_unitaire}</td>
-                        <td>
-                            <input type="number" id="quantité" value="${data.poseAppareils}" min="0" class="form-control border border-dark w-50 mx-auto">
-                        </td>
-                        <td><input type="checkbox" class="checkbox form-check-input border border-3 border-dark" id ="checkbox" checked='true'"></td>
-                    </tr>
-                `;
-                }else{
-                    tbody.innerHTML += `
-                    <tr>
-                        <td>${item.designation}</td>
-                        <td>${item.prix_unitaire}</td>
-                        <td>
-                            <input type="number" id="quantité" value="0" min="0" class="form-control border border-dark w-50 mx-auto">
-                        </td>
-                        <td><input type="checkbox" class="checkbox form-check-input border border-3 border-dark" id ="checkbox" onclick="handleCheck(this)"></td>
-                    </tr>
+            liste.forEach(item => {
+                tbody.innerHTML += `
+                <tr>
+                    <td>${item.designation}</td>
+                    <td>${item.prix_unitaire}</td>
+                    <td>
+                        <input type="number" id="quantité" value="0" min="0" class="form-control border border-dark w-50 mx-auto" onchange="handleQte(this)">
+                    </td>
+                    <td><input type="checkbox" class="checkbox form-check-input border border-3 border-dark" id ="checkbox" onclick="handleCheck(this)"></td>
+                </tr>
                 `;
                 }
-             });
+             );
          }
     }
  }
@@ -48,6 +36,19 @@ const fetchData = (liste) =>{
     checkData();
     fetchData(piècesList);
  }
+
+
+// handle Qte
+const handleQte = (input)=>{
+    console.log("it's working");
+    const row = input.parentElement.parentElement;
+    const checkbox = row.cells[3].querySelector("input");
+    if(input.value > 0){
+        checkbox.classList.add("checking");
+    }else{
+        checkbox.classList.remove("checking");
+    }
+};
 //handle Check
 
 const handleCheck = (btn) => {
@@ -57,9 +58,13 @@ const handleCheck = (btn) => {
     const prix_unitaire = row.cells[1].innerHTML;
     const quantité = row.cells[2].querySelector('input').value;
     const elements = JSON.parse(localStorage.getItem("fixe"));
+    const checkbox = row.cells[3].querySelector("input");
+    checkbox.classList.remove("checking");
+
     if(quantité == 0){
         window.alert("Veuillez choisir une quantité");
-        row.cells[3].querySelector("input").checked = false;
+        checkbox.checked = false;
+        return;
     }else{
        if(designation.toLowerCase().includes("tuyau poly hd")){
             const pose = elements.find(element => element.designation.toLowerCase().includes("pose tuyau pol hd "+designation.slice(-2)));

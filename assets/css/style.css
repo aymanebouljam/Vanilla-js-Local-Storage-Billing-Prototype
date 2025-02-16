@@ -56,6 +56,10 @@ input[type="search"]:focus{
     margin-bottom: 15px !important; 
 }
 
+.checking{
+    background-color: #ff0000;
+}
+
 
 
 
