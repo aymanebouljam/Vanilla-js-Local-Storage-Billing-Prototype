@@ -96,9 +96,8 @@ $(document).ready(function() {
 const handleDelete = (event) => {
     if(confirm("Souhaitez-vous vraiment supprimer cette pièce ? ")){
         const designation = event.target.dataset.designation;
-        console.log(designation);
         const newData = piècesList.filter(pièce => pièce.designation.toLowerCase() !== designation.toLowerCase());
         localStorage.setItem("piècesList", JSON.stringify(newData));
-        window.location.href = "admin.html";
+        window.location.reload();
     }
 }

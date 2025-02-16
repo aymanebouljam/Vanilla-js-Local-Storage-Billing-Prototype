@@ -56,19 +56,20 @@ const handleCheck = (btn) => {
     const designation = row.cells[0].innerHTML;
     const prix_unitaire = row.cells[1].innerHTML;
     const quantité = row.cells[2].querySelector('input').value;
+    const elements = JSON.parse(localStorage.getItem("fixe"));
     if(quantité == 0){
         window.alert("Veuillez choisir une quantité");
         row.cells[3].querySelector("input").checked = false;
     }else{
-       if(designation.toLocaleLowerCase().includes("tuyau poly hd")){
-            const pose = piècesList.find(pièce => pièce.designation.toLocaleLowerCase().includes("pose tuyau pol hd "+designation.slice(-2)));
+       if(designation.toLowerCase().includes("tuyau poly hd")){
+            const pose = elements.find(element => element.designation.toLowerCase().includes("pose tuyau pol hd "+designation.slice(-2)));
             formData.push({
                 designation,
                 prix_unitaire : parseInt(prix_unitaire),
                 quantité : parseInt(quantité),
             },{
                 designation : pose.designation,
-                prix_unitaire : parseInt(pose.prix_unitaire),
+                prix_unitaire : parseInt(pose.valeur),
                 quantité: parseInt(quantité),
             });
        }else{
@@ -87,15 +88,15 @@ let formData = [];
 
 const handleTable = () => {
     const data = JSON.parse(localStorage.getItem("data"));
-    const piècesList = JSON.parse(localStorage.getItem("piècesList"));
+    const elements= JSON.parse(localStorage.getItem("fixe"));
     let prix_unitaire = 0;
-    piècesList.forEach(pièce => {
-        if(pièce.designation.toLowerCase() === "POSE Appareils".toLocaleLowerCase()){
-            prix_unitaire = pièce.prix_unitaire;
+    elements.forEach(element => {
+        if(element.designation.toLowerCase() === "POSE Appareils".toLowerCase()){
+            prix_unitaire = element.valeur;
         }
     });
 
-    if(data && piècesList){
+    if(data && elements){
         if(formData.length === 0){
             window.alert("Veuillez choisir les pièces nécessaires");
             return;

@@ -9,12 +9,42 @@ const checkData = () => {
 //handle devis table
 const handleDevis = () => {
     const data = JSON.parse(localStorage.getItem("data"));
-    const installation = 191.37;
-    const fraisInterv = 0.15;
-    const TVA = 0.20;
     const tdevis = document.getElementById("tableDevis");
-
+    const elements = JSON.parse(localStorage.getItem("fixe"));
     let somme = 0;
+    let installationPrise;
+    let tva;
+    let frais_intervention;
+    let pose20;
+    let pose25;
+    let pose50;
+
+    if(elements){
+        elements.forEach(element => {
+            switch(true){
+                case element.designation.toLowerCase().includes("Installation de la prise".toLowerCase()):
+                    installationPrise = element.valeur;
+                    break;
+                case element.designation.toLowerCase().includes("Tva".toLowerCase()):
+                    tva = element.valeur;
+                    break;
+                case element.designation.toLowerCase().includes("Frais intervention".toLowerCase()):
+                    frais_intervention = element.valeur;
+                    break;
+                case element.designation.toLowerCase().includes("'Pose Tuyau pol HD 20".toLowerCase()):
+                    pose20 = element.valeur;
+                    break;
+                case element.designation.toLowerCase().includes("'Pose Tuyau pol HD 25".toLowerCase()):
+                    pose25 = element.valeur;
+                    break;
+                case element.designation.toLowerCase().includes("'Pose Tuyau pol HD 50".toLowerCase()):
+                    pose50 = element.valeur;
+                    break;
+                default:
+                    break;
+            }
+        })
+    }
    
     if(tdevis){
         tdevis.innerHTML = "";
@@ -31,14 +61,14 @@ const handleDevis = () => {
                 somme += Number(item.prix_unitaire) * Number(item.quantité);
             });
             const frais_intervention = somme * fraisInterv;
-            const montant_tva = (somme + (somme * fraisInterv)) * TVA;
+            const montant_tva = (somme + (somme * fraisInterv)) * tva;
     
              tdevis.innerHTML += `
                 <tr>
                     <td>Installation de la prise</td>
                     <td>1</td>
-                    <td>${installation}</td>
-                    <td>${installation}</td>
+                    <td>${installationPrise}</td>
+                    <td>${installationPrise}</td>
                 </tr>
                 <tr>
                     <td>Total HT</td>
@@ -56,7 +86,7 @@ const handleDevis = () => {
                     <td>T.V.A 20%</td>
                     <td></td>
                     <td></td>
-                    <td>${montant_tva.toFixed(2)}</td>
+                    <td>${tva.toFixed(2)}</td>
                 </tr>
                  <tr>
                     <td>Taxe riveraine</td>
@@ -92,6 +122,9 @@ function handleExportTable() {
     const typeBranch = data.typeBranch;
     const compteur = data.compteur;
     const nourice = typeBranch === "déplacement de la niche" ? "" : `nourice à ${compteur} compteurs`;
+    const currentDate = new Date();
+    const year = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
+
 
     if (!data) {
         alert("Veuillez Créer un devis!");
@@ -115,7 +148,7 @@ function handleExportTable() {
         ["ROYAUME DU MAROC"],
         ["Facture EG N°"],
         ["OFFICE NATIONAL DE L'ELECTRICITE ET DE L'EAU POTABLE"],
-        ["BOUIZAKARNE LE :"],
+        [`BOUIZAKARNE LE: ${year}`],
         ["BRANCHE EAU"],
         ["DIRECTION REGIONALE: GUELMIM"],
         ["CENTRE: BOUIZAKARNE"],

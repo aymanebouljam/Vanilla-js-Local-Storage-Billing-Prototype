@@ -75,6 +75,6 @@ const handleDelete = (event) => {
         const designation = event.target.dataset.designation;
         const newData = elements.filter(element => element.designation.toLowerCase() !== designation.toLowerCase());
         localStorage.setItem("fixe", JSON.stringify(newData));
-        window.location.href = "dash.html";
+        window.location.reload();
     }
 }
