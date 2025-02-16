@@ -67,13 +67,13 @@ const handleDevis = () => {
                     <td>${somme.toFixed(2)}</td>
                 </tr>
                 <tr>
-                    <td>Frais d'intervention (${frais_intervention * 10}%)</td>
+                    <td>Frais d'intervention (${frais_intervention * 100}%)</td>
                     <td></td>
                     <td></td>
                     <td>${intervention.toFixed(2)}</td>
                 </tr>
                  <tr>
-                    <td>T.V.A ${tva * 10}%</td>
+                    <td>T.V.A ${tva * 100}%</td>
                     <td></td>
                     <td></td>
                     <td>${montant_tva.toFixed(2)}</td>
