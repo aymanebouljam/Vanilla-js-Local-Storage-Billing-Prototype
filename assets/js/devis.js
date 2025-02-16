@@ -135,26 +135,41 @@ function handleExportTable() {
     const globalFont = { size: 14, bold: false };
 
     const headers = [
-        ["ROYAUME DU MAROC"],
-        ["Facture EG N°"],
-        ["OFFICE NATIONAL DE L'ELECTRICITE ET DE L'EAU POTABLE"],
-        [`BOUIZAKARNE LE: ${year}`],
+        ["ROYAUME DU MAROC"], 
+        ["OFFICE NATIONAL DE L'ÉLECTRICITÉ ET DE L'EAU POTABLE"],   
         ["BRANCHE EAU"],
-        ["DIRECTION REGIONALE: GUELMIM"],
+        ["DIRECTION RÉGIONALE: GUELMIM"], 
         ["CENTRE: BOUIZAKARNE"],
         ["C.C.P.N°: 106-28-C"],
+        [`BOUIZAKARNE LE: ${year}`],
+        ["Facture EG N°...................."],
+        [""], 
         [`OBJET: ${typeBranch.toUpperCase()} ${nourice}`],
+        [""], 
         [`(Nom du Tiers): ${nom.toUpperCase()} ${prénom.toUpperCase()}`],
         [`POLICE: ${police}`],
         [""], 
-        [""], 
     ];
 
-    headers.forEach((text, rowIndex) => {
-        const row = worksheet.addRow(text);
-        row.font = globalFont;
-        worksheet.mergeCells(`A${rowIndex + 1}:D${rowIndex + 1}`);
-        row.getCell(1).alignment = { horizontal: "left" };
+    headers.forEach((row, index) => {
+        const excelRow = worksheet.addRow(row);
+        const cell = excelRow.getCell(1);
+    
+        worksheet.mergeCells(`A${index + 1}:D${index + 1}`);
+    
+        cell.alignment = { horizontal: "center" , vertical: "middle"};
+        cell.font = globalFont;
+        
+        
+        if ([6,11,12].includes(index)) {
+            cell.alignment = { horizontal: "left" , vertical: "middle"};
+            cell.font = { bold : true };
+        }else if([7].includes(index)){
+            cell.alignment = { horizontal : "right" , vertical: "middle"};
+            cell.font = { bold : true };
+        }else if([9].includes(index)){
+            cell.font = { bold : true };
+        }
     });
 
     let tableStartRow = headers.length + 1;
@@ -172,6 +187,18 @@ function handleExportTable() {
         });
     });
 
+
+    const lastRowIndex = worksheet.rowCount; 
+
+    for(let i=16; i<= lastRowIndex; i++){
+        worksheet.getCell(`A${i}`).alignment = { horizontal : "left",  vertical: "middle"};
+    };
+    const liste = [0,2,3,4];
+    liste.forEach(n => {
+        worksheet.mergeCells(`A${lastRowIndex - n}:C${lastRowIndex - n}`);
+    });
+    
+
     worksheet.columns.forEach((col,index) => {
         if (index === 1 || index === 2) {  
             col.width = 15;  
@@ -181,6 +208,9 @@ function handleExportTable() {
             col.width = 20;
         }
     });
+    worksheet.headerFooter = {
+        oddFooter: `Arrêté la présente facture à la somme de: .........................`
+    };
     
     workbook.xlsx.writeBuffer().then((buffer) => {
         const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
