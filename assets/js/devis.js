@@ -42,8 +42,8 @@ const handleDevis = () => {
                 tdevis.innerHTML += `
                 <tr>
                     <td>${item.designation}</td>
-                    <td>${item.prix_unitaire}</td>
                     <td>${item.quantité}</td>
+                    <td>${item.prix_unitaire}</td>        
                     <td>${(Number(item.prix_unitaire) * Number(item.quantité)).toFixed(2)}</td>
                 </tr>
             `;
@@ -56,8 +56,8 @@ const handleDevis = () => {
              tdevis.innerHTML += `
                 <tr>
                     <td>Installation de la prise</td>
-                    <td>${installationPrise}</td>
                     <td>1</td>
+                    <td>${installationPrise}</td>     
                     <td>${installationPrise}</td>
                 </tr>
                 <tr>
@@ -111,7 +111,8 @@ function handleExportTable() {
     const police = data.police;
     const typeBranch = data.typeBranch;
     const compteur = data.compteur;
-    const nourice = typeBranch === "déplacement de la niche" ? "" : `nourice à ${compteur} compteurs`;
+    const nourice = typeBranch === "déplacement de la niche" ? "" : `nourice à ${compteur} ${compteur > 1 ?"compteurs" : "compteur"}`;
+
     const currentDate = new Date();
     const year = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
 
@@ -180,11 +181,7 @@ function handleExportTable() {
             col.width = 20;
         }
     });
-   
-    worksheet.headerFooter = {
-        oddFooter: `Arrêté la présente facture à la somme de: ${total} Dirhams`
-    };
-        
+    
     workbook.xlsx.writeBuffer().then((buffer) => {
         const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
         saveAs(blob, "facture_EG.xlsx");
