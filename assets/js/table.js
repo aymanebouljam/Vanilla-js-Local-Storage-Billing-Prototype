@@ -70,18 +70,18 @@ const handleCheck = (btn) => {
             const pose = elements.find(element => element.designation.toLowerCase().includes("pose tuyau pol hd "+designation.slice(-2)));
             formData.push({
                 designation,
-                prix_unitaire : parseInt(prix_unitaire),
-                quantité : parseInt(quantité),
+                prix_unitaire : Number(prix_unitaire),
+                quantité : Number(quantité),
             },{
                 designation : pose.designation,
-                prix_unitaire : parseInt(pose.valeur),
-                quantité: parseInt(quantité),
+                prix_unitaire : Number(pose.valeur),
+                quantité: Number(quantité),
             });
        }else{
         formData.push({
             designation,
-            prix_unitaire : parseInt(prix_unitaire),
-            quantité : parseInt(quantité),
+            prix_unitaire : Number(prix_unitaire),
+            quantité : Number(quantité),
         });
        }
     }
