@@ -144,7 +144,7 @@ function handleExportTable() {
         [`BOUIZAKARNE LE: ${year}`],
         ["Facture EG N°...................."],
         [""], 
-        [`OBJET: ${typeBranch.toUpperCase()} ${nourice}`],
+        [`OBJET: ${typeBranch.toUpperCase()} ${nourice.toUpperCase()}`],
         [""], 
         [`(Nom du Tiers): ${nom.toUpperCase()} ${prénom.toUpperCase()}`],
         [`POLICE: ${police}`],
