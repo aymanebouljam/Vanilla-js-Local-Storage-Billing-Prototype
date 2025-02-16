@@ -23,7 +23,10 @@
             </ul>
         </div>
         <div class="card  shadow w-75 h-100 ms-5 px-5 py-4">
-            <h3 class="text-center">Ajouter une Pièce</h3>
+            <div class="d-flex align-items-center justify-content-between">
+                <button type="button" class="btn btn-outline-light w-25" onclick="window.location.href = 'admin.html'">Retourner</button>
+                <h3 class="text-center">Ajouter une Pièce</h3>   
+            </div>
             <hr>
             <form onsubmit="createPiece(event)" id="create-form">
                 <div class="form-group my-3">
@@ -34,7 +37,7 @@
                 </div>
                 <hr>
                 <div class="form-group my-3">
-                    <button type="submit" class="btn btn-outline-dark">Ajouter</button>
+                    <button type="submit" class="btn btn-outline-light">Ajouter</button>
                 </div>
             </form>
        </div>
