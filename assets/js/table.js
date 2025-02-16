@@ -40,7 +40,6 @@ const fetchData = (liste) =>{
 
 // handle Qte
 const handleQte = (input)=>{
-    console.log("it's working");
     const row = input.parentElement.parentElement;
     const checkbox = row.cells[3].querySelector("input");
     if(input.value > 0){
