@@ -7,7 +7,7 @@
 body{
     width: 100%;
     height: 100vh;
-    background: linear-gradient(to left,#000039, #310031);
+    background: linear-gradient(to right, #003f5c, #001e28);
 }
 
 a{
@@ -20,12 +20,31 @@ ul li{
     font-size: 1.1rem;
     font-weight: 500;
 }
+ul li a{
+    padding: 7px;
+    display: block;
+    width: 100%;
+    color: #fff;
+}
+
+ul li:hover{
+    font-size: 1.3rem;
+}
+
+  
 .card{
+    background: #ffffff1a;
+    color: #fff;
     border-radius: 40px;
+    backdrop-filter: blur(10px);
+    border: 1px solid #ffffff33;
+    box-shadow: 0 4px 10px #00000033;
 }
+
 .sidebar{
-    height: 300px;
+    height: max-content;
 }
+
 input[type="text"],input[type="number"], select{
     border: 2px solid #000 !important;
 }

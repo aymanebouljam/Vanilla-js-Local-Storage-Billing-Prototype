@@ -21,6 +21,8 @@ const fillForm = () => {
 
 window.onload = ()=>fillForm();
 
+// Edit the piece
+
 const editPiece= (event) => {
     event.preventDefault();
     const designation = document.getElementById("désignation");
