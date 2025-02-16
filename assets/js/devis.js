@@ -15,9 +15,6 @@ const handleDevis = () => {
     let installationPrise;
     let tva;
     let frais_intervention;
-    let pose20;
-    let pose25;
-    let pose50;
 
     if(elements){
         elements.forEach(element => {
@@ -30,15 +27,6 @@ const handleDevis = () => {
                     break;
                 case element.designation.toLowerCase().includes("Frais intervention".toLowerCase()):
                     frais_intervention = element.valeur;
-                    break;
-                case element.designation.toLowerCase().includes("'Pose Tuyau pol HD 20".toLowerCase()):
-                    pose20 = element.valeur;
-                    break;
-                case element.designation.toLowerCase().includes("'Pose Tuyau pol HD 25".toLowerCase()):
-                    pose25 = element.valeur;
-                    break;
-                case element.designation.toLowerCase().includes("'Pose Tuyau pol HD 50".toLowerCase()):
-                    pose50 = element.valeur;
                     break;
                 default:
                     break;
@@ -60,8 +48,8 @@ const handleDevis = () => {
             `;
                 somme += Number(item.prix_unitaire) * Number(item.quantité);
             });
-            const frais_intervention = somme * fraisInterv;
-            const montant_tva = (somme + (somme * fraisInterv)) * tva;
+            const intervention = somme * frais_intervention;
+            const montant_tva = (somme + (somme * frais_intervention)) * tva;
     
              tdevis.innerHTML += `
                 <tr>
@@ -80,13 +68,13 @@ const handleDevis = () => {
                     <td>Frais d'intervention (15%)</td>
                     <td></td>
                     <td></td>
-                    <td>${frais_intervention.toFixed(2)}</td>
+                    <td>${intervention.toFixed(2)}</td>
                 </tr>
                  <tr>
                     <td>T.V.A 20%</td>
                     <td></td>
                     <td></td>
-                    <td>${tva.toFixed(2)}</td>
+                    <td>${montant_tva.toFixed(2)}</td>
                 </tr>
                  <tr>
                     <td>Taxe riveraine</td>
@@ -98,7 +86,7 @@ const handleDevis = () => {
                     <td>TOTAL GENERAL TTC</td>
                     <td></td>
                     <td></td>
-                    <td>${(somme + frais_intervention + montant_tva).toFixed(2)}</td>
+                    <td>${(somme + intervention + montant_tva).toFixed(2)}</td>
                 </tr>
              `;
     
