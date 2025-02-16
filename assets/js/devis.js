@@ -5,17 +5,18 @@ const checkData = () => {
         window.location.href = "formulaire.html";
     }
 }
+// global total
+let total = 0;
 
 //handle devis table
 const handleDevis = () => {
     const data = JSON.parse(localStorage.getItem("data"));
     const tdevis = document.getElementById("tableDevis");
     const elements = JSON.parse(localStorage.getItem("fixe"));
-    let somme = 0;
     let installationPrise;
     let tva;
     let frais_intervention;
-
+    let somme = 0;
     if(elements){
         elements.forEach(element => {
             switch(true){
@@ -50,7 +51,8 @@ const handleDevis = () => {
             });
             const intervention = somme * frais_intervention;
             const montant_tva = (somme + (somme * frais_intervention)) * tva;
-    
+            total = somme + intervention + montant_tva;
+        
              tdevis.innerHTML += `
                 <tr>
                     <td>Installation de la prise</td>
@@ -77,16 +79,16 @@ const handleDevis = () => {
                     <td>${montant_tva.toFixed(2)}</td>
                 </tr>
                  <tr>
-                    <td>Taxe riveraine</td>
+                    <td>Taxe rivéraine</td>
                     <td></td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>TOTAL GENERAL TTC</td>
+                    <td>TOTAL GÉNÉRAL TTC</td>
                     <td></td>
                     <td></td>
-                    <td>${(somme + intervention + montant_tva).toFixed(2)}</td>
+                    <td>${(total).toFixed(2)}</td>
                 </tr>
              `;
     
@@ -169,10 +171,20 @@ function handleExportTable() {
         });
     });
 
-    worksheet.columns.forEach(col => {
-        col.width = 35;
+    worksheet.columns.forEach((col,index) => {
+        if (index === 1 || index === 2) {  
+            col.width = 15;  
+        } else if(index === 0) {
+            col.width = 40;
+        } else{
+            col.width = 20;
+        }
     });
-
+   
+    worksheet.headerFooter = {
+        oddFooter: `Arrêté la présente facture à la somme de: ${total} Dirhams`
+    };
+        
     workbook.xlsx.writeBuffer().then((buffer) => {
         const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
         saveAs(blob, "facture_EG.xlsx");
