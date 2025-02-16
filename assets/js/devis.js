@@ -209,7 +209,7 @@ function handleExportTable() {
         }
     });
     worksheet.headerFooter = {
-        oddFooter: `Arrêté la présente facture à la somme de: .........................`
+        evenFooter: `Arrêtée la présente facture à la somme de: .........................`
     };
     
     workbook.xlsx.writeBuffer().then((buffer) => {
