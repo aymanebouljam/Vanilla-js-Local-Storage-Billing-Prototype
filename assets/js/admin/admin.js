@@ -51,7 +51,7 @@ const fetchList = () =>{
                     <td>${pièce.prix_unitaire}</td>
                     <td>
                         <button class="btn btn-outline-dark btn-sm me-2" id ="modifier" onclick="window.location.href = 'edit.html?designation=${pièce.designation}';">Modifier</button> 
-                        <button class="btn btn-outline-danger btn-sm" id ="supprimer" data-designation = ${pièce.designation} onclick="handleDelete(event)">Supprimer</button> 
+                        <button class="btn btn-outline-danger btn-sm" id ="supprimer" data-designation = "${pièce.designation}" onclick="handleDelete(event)">Supprimer</button> 
                     </td>
                 </tr>
             `;
@@ -96,6 +96,7 @@ $(document).ready(function() {
 const handleDelete = (event) => {
     if(confirm("Souhaitez-vous vraiment supprimer cette pièce ? ")){
         const designation = event.target.dataset.designation;
+        console.log(designation);
         const newData = piècesList.filter(pièce => pièce.designation.toLowerCase() !== designation.toLowerCase());
         localStorage.setItem("piècesList", JSON.stringify(newData));
         window.location.href = "admin.html";
