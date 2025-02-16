@@ -34,8 +34,8 @@ const handleSelect = (event) => {
         <select class="form-control border-2"  id="typeBranch" required>
             <option value="">-- Type de Branchement --</option>
             <option value="modification de branchement de 1/2 à 3/4">Modification 20 => 25</option>
-            <option value="modification de branchement de 1/2 à 1 1/2">Modification 20 => 50</option>
-            <option value="modification de branchement de 3/4 à 1 1/2">Modification 25 => 50</option>
+            <option value='modification de branchement de 1/2 à 1"1/2'>Modification 20 => 50</option>
+            <option value='modification de branchement de 3/4 à 1"1/2'>Modification 25 => 50</option>
         </select>
     `;
         compteurContainer.innerHTML = `
