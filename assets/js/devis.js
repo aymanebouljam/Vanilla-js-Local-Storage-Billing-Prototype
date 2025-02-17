@@ -82,9 +82,9 @@ const handleDevis = () => {
                     <td>${montant_tva.toFixed(2)}</td>
                 </tr>
                  <tr>
-                    <td>Taxe rivéraine</td>
-                    <td>${riveraine > 0 ? "-----" : "Payée par : "}</td>
-                    <td>${motif ? motif : riveraine}</td>
+                    <td>Taxe rivéraine ${riveraine === 0 && `Réglée par ${motif && motif}` }</td>
+                    <td></td>
+                    <td></td>
                     <td>${riveraine}</td>       
                 </tr>
                 <tr>
@@ -200,11 +200,11 @@ function handleExportTable() {
     for(let i=16; i<= lastRowIndex; i++){
         worksheet.getCell(`A${i}`).alignment = { horizontal : "left",  vertical: "middle",  wrapText: true };
     };
-    const liste = [0,2,3,4];
+    const liste = [0,1,2,3,4];
     liste.forEach(n => {
         worksheet.mergeCells(`A${lastRowIndex - n}:C${lastRowIndex - n}`);
     });
-    worksheet.getRow(lastRowIndex - 1).height = 50;
+   
 
     worksheet.columns.forEach((col,index) => {
         if (index === 1 || index === 2) {  

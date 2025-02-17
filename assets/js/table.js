@@ -94,6 +94,10 @@ const handleTable = () => {
     const data = JSON.parse(localStorage.getItem("data"));
     const elements= JSON.parse(localStorage.getItem("fixe"));
     let prix_unitaire = 0;
+    if(formData.length === 0){
+        window.alert("Veuillez choisir des pièces avant de valider");
+        return;
+    }
     elements.forEach(element => {
         if(element.designation.toLowerCase() === "POSE Appareils".toLowerCase()){
             prix_unitaire = element.valeur;
