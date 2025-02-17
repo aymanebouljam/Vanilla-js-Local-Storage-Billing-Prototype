@@ -11,6 +11,9 @@ let total = 0;
 //handle devis table
 const handleDevis = () => {
     const data = JSON.parse(localStorage.getItem("data"));
+    const riveraine = data.riveraine;
+    const motif = data.motif;
+    console.log(riveraine , motif);
     const tdevis = document.getElementById("tableDevis");
     const elements = JSON.parse(localStorage.getItem("fixe"));
     let installationPrise;
@@ -51,7 +54,7 @@ const handleDevis = () => {
             });
             const intervention = somme * frais_intervention;
             const montant_tva = (somme + (somme * frais_intervention)) * tva;
-            total = somme + intervention + montant_tva;
+            total = somme + intervention + montant_tva + riveraine;
         
              tdevis.innerHTML += `
                 <tr>
@@ -80,9 +83,9 @@ const handleDevis = () => {
                 </tr>
                  <tr>
                     <td>Taxe rivéraine</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>${riveraine > 0 ? "-----" : "Payée par : "}</td>
+                    <td>${motif ? motif : riveraine}</td>
+                    <td>${riveraine}</td>       
                 </tr>
                 <tr>
                     <td>TOTAL GÉNÉRAL TTC</td>
@@ -157,15 +160,15 @@ function handleExportTable() {
     
         worksheet.mergeCells(`A${index + 1}:D${index + 1}`);
     
-        cell.alignment = { horizontal: "center" , vertical: "middle"};
+        cell.alignment = { horizontal: "center" , vertical: "middle",  wrapText: true };
         cell.font = globalFont;
         
         
         if ([6,11,12].includes(index)) {
-            cell.alignment = { horizontal: "left" , vertical: "middle"};
+            cell.alignment = { horizontal: "left" , vertical: "middle",  wrapText: true };
             cell.font = { bold : true };
         }else if([7].includes(index)){
-            cell.alignment = { horizontal : "right" , vertical: "middle"};
+            cell.alignment = { horizontal : "right" , vertical: "middle",  wrapText: true };
             cell.font = { bold : true };
         }else if([9].includes(index)){
             cell.font = { bold : true };
@@ -183,7 +186,11 @@ function handleExportTable() {
             const cell = excelRow.getCell(colIndex + 1);
             cell.border = borderStyle; 
             cell.font = globalFont; 
-            cell.alignment = { horizontal: "center", vertical: "middle" };
+            cell.alignment = { 
+                horizontal: "center", 
+                vertical: "middle",
+                wrapText: true 
+            };
         });
     });
 
@@ -191,13 +198,13 @@ function handleExportTable() {
     const lastRowIndex = worksheet.rowCount; 
 
     for(let i=16; i<= lastRowIndex; i++){
-        worksheet.getCell(`A${i}`).alignment = { horizontal : "left",  vertical: "middle"};
+        worksheet.getCell(`A${i}`).alignment = { horizontal : "left",  vertical: "middle",  wrapText: true };
     };
     const liste = [0,2,3,4];
     liste.forEach(n => {
         worksheet.mergeCells(`A${lastRowIndex - n}:C${lastRowIndex - n}`);
     });
-    
+    worksheet.getRow(lastRowIndex - 1).height = 50;
 
     worksheet.columns.forEach((col,index) => {
         if (index === 1 || index === 2) {  
@@ -209,7 +216,7 @@ function handleExportTable() {
         }
     });
     worksheet.headerFooter = {
-        oddFooter: `Arrêtée la présente facture à la somme de: .........................`
+        oddFooter: `Arrêtée la présente facture à la somme de: ${total.toFixed(2)} Dirhams.`
     };
     
     workbook.xlsx.writeBuffer().then((buffer) => {
