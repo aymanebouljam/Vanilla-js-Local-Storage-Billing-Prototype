@@ -51,22 +51,23 @@ const handleDevis = () => {
             `;
                 somme += Number(item.prix_unitaire) * Number(item.quantité);
             });
-            const intervention = somme * frais_intervention;
-            const montant_tva = (somme + (somme * frais_intervention)) * tva;
-            total = somme + intervention + montant_tva + riveraine;
+            const ht = somme + installationPrise;
+            const intervention =  ht * frais_intervention;
+            const montant_tva = (ht + (ht * frais_intervention)) * tva;
+            total = ht + intervention + montant_tva + riveraine;
         
              tdevis.innerHTML += `
                 <tr>
                     <td>Installation de la prise</td>
                     <td>1</td>
-                    <td>${installationPrise}</td>     
-                    <td>${installationPrise}</td>
+                    <td>${installationPrise.toFixed(2)}</td>     
+                    <td>${installationPrise.toFixed(2)}</td>
                 </tr>
                 <tr>
                     <td>Total HT</td>
                     <td></td>
                     <td>/td>
-                    <td>${somme.toFixed(2)}</td>
+                    <td>${(somme + installationPrise).toFixed(2)}</td>
                 </tr>
                 <tr>
                     <td>Frais d'intervention (${frais_intervention * 100}%)</td>
@@ -81,7 +82,7 @@ const handleDevis = () => {
                     <td>${montant_tva.toFixed(2)}</td>
                 </tr>
                  <tr>
-                    <td>Taxe rivéraine ${riveraine === 0 ? (motif ? `Réglée par ${motif}` : "") : "" }</td>
+                    <td>Taxe riveraine: ${riveraine === 0 ? (motif ? `Réglée par ${motif}` : "") : "" }</td>
                     <td></td>
                     <td></td>
                     <td>${riveraine}</td>       
