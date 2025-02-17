@@ -15,7 +15,7 @@ const fetchList = () =>{
                     <td>${element.valeur}</td>
                     <td>
                         <button class="btn btn-outline-dark btn-sm me-2" id ="modifier" onclick="window.location.href = 'modification.html?designation=${element.designation}';">Modifier</button> 
-                        <button class="btn btn-outline-danger btn-sm" id ="supprimer" data-designation = ${element.designation} onclick="handleDelete(event)">Supprimer</button> 
+                        <button class="btn btn-outline-danger btn-sm" id ="supprimer" data-designation = "${element.designation}" onclick="handleDelete(event)">Supprimer</button> 
                     </td>
                 </tr>
             `;

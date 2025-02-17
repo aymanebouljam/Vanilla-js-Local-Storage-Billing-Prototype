@@ -88,7 +88,6 @@ const handleForm = (event) => {
         typeBranch : typeBranch ? typeBranch.value : "déplacement de la niche",
         police : police ? police.value : "",
         compteur : compteur ? Number(compteur.value) : 1,
-        poseAppareils : compteur ? Number(compteur.value)+ 1 : 1,
         riveraine : Number(riveraine.value) > 0 ? Number(riveraine.value) : 0,
         motif : motif ? motif.value : "",
     }

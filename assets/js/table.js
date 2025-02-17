@@ -10,7 +10,6 @@ const checkData = () => {
 
 //fetch table
 const fetchData = (liste) =>{
-    const data = JSON.parse(localStorage.getItem("data"));
     const tbody = document.getElementById("tableBody");
     if(tbody){
          tbody.innerHTML = "";
@@ -56,7 +55,6 @@ const handleCheck = (btn) => {
     const designation = row.cells[0].innerHTML;
     const prix_unitaire = row.cells[1].innerHTML;
     const quantité = row.cells[2].querySelector('input').value;
-    const elements = JSON.parse(localStorage.getItem("fixe"));
     const checkbox = row.cells[3].querySelector("input");
     checkbox.classList.remove("checking");
 
@@ -65,18 +63,6 @@ const handleCheck = (btn) => {
         checkbox.checked = false;
         return;
     }else{
-       if(designation.toLowerCase().includes("tuyau poly hd")){
-            const pose = elements.find(element => element.designation.toLowerCase().includes("pose tuyau pol hd "+designation.slice(-2)));
-            formData.push({
-                designation,
-                prix_unitaire : Number(prix_unitaire),
-                quantité : Number(quantité),
-            },{
-                designation : pose.designation,
-                prix_unitaire : Number(pose.valeur),
-                quantité: Number(quantité),
-            });
-       }else{
         formData.push({
             designation,
             prix_unitaire : Number(prix_unitaire),
@@ -84,7 +70,7 @@ const handleCheck = (btn) => {
         });
        }
     }
-};
+;
 
 //handle table
 
@@ -92,19 +78,13 @@ let formData = [];
 
 const handleTable = () => {
     const data = JSON.parse(localStorage.getItem("data"));
-    const elements= JSON.parse(localStorage.getItem("fixe"));
-    let prix_unitaire = 0;
+  
+  
     if(formData.length === 0){
         window.alert("Veuillez choisir des pièces avant de valider");
         return;
     }
-    elements.forEach(element => {
-        if(element.designation.toLowerCase() === "POSE Appareils".toLowerCase()){
-            prix_unitaire = element.valeur;
-        }
-    });
-
-    if(data && elements){
+    if(data){
         if(formData.length === 0){
             window.alert("Veuillez choisir les pièces nécessaires");
             return;
@@ -114,7 +94,6 @@ const handleTable = () => {
             ...data,
             pièces : [
                 ...formData,
-                {designation : "POSE Appareils", prix_unitaire : prix_unitaire, quantité : data.poseAppareils},
             ]
         }
         localStorage.setItem("data", JSON.stringify(newData));
