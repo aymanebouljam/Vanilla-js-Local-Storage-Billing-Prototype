@@ -25,13 +25,11 @@
         <div class="card shadow w-75 h-100 ms-5">
            <div class="card-body p-4">
             <div class="my-4 px-4">
-                <h2 class="text-center">Télécharger la Facture EG </h2>
+                <h2 class="text-center">Télécharger La Facture EG </h2>
             </div>
-            <div class="my-4 px-4">
-                <button type="button" class="btn btn-success btn-lg d-block mx-auto" onclick="handleExportTable()">Excel</button>
-            </div>
-            <div class="my-4 px-4">
-                <button type="button" class="btn btn-danger btn-lg d-block mx-auto" onclick="handleExportToPDF()">PDF</button>
+            <div class="my-4 px-4 d-flex align-items-center justify-content-evenly">
+                <button type="button" class="btn btn-success btn-lg w-25" onclick="handleExportTable()">Excel</button>
+                <button type="button" class="btn btn-danger btn-lg w-25" onclick="handleExportToPDF()">PDF</button>
             </div>
             <table class="table table-bordered table-light table-responsive table-striped table-hover text-center" id="dataTable" style="display: none;">
                 <thead class="table-dark">
