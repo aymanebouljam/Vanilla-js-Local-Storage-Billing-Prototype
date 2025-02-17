@@ -45,6 +45,23 @@ const handleSelect = (event) => {
         policeContainer.innerHTML = ` 
             <input type="text" placeholder="N° de Police" class="form-control" id="police" required>
         `;
+    }else if(selected === "déplacement de la niche"){
+        policeContainer.innerHTML = ` 
+        <input type="text" placeholder="N° de Police" class="form-control" id="police" required>
+        `;
+    }
+};
+
+//handle riveraine
+const handleRiveraine = (event) => {
+    const reviraine = Number(event.target.value);
+    const motifContainer = document.getElementById("motifContainer");
+    if(reviraine !== 0){
+        motifContainer.innerHTML = "";
+    }else if(reviraine == 0){
+        motifContainer.innerHTML = `
+            <input type="text" class="form-control" id="motif" placeholder="Motif de dispense">
+        `;
     }
 }
 
@@ -55,6 +72,9 @@ const handleForm = (event) => {
     const typeBranch = document.getElementById("typeBranch");
     const compteur = document.getElementById("compteur");
     const police = document.getElementById("police");
+    const riveraine = document.getElementById("riveraine");
+    const motif = document.getElementById("motif");
+    console.log(riveraine.value, motif?.value)
 
     if(compteur && Number(compteur.value) == 0){
         alert("Veuillez saisir le nombre des compteurs");
@@ -67,8 +87,10 @@ const handleForm = (event) => {
         objet : objet.value,
         typeBranch : typeBranch ? typeBranch.value : "déplacement de la niche",
         police : police ? police.value : "",
-        compteur : compteur ? compteur.value : 1,
-        poseAppareils : compteur ? parseInt(compteur.value)+ 1 : 2,
+        compteur : compteur ? Number(compteur.value) : 1,
+        poseAppareils : compteur ? Number(compteur.value)+ 1 : 1,
+        riveraine : Number(riveraine.value) > 0 ? Number(riveraine.value) : 0,
+        motif : motif ? motif.value : "",
     }
     localStorage.setItem("data", JSON.stringify(formData));
     window.location.href = "table.html";

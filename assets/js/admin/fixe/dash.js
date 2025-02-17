@@ -1,16 +1,3 @@
-// const elements = [
-//     {designation:"Pose Tuyau pol HD 20", valeur : 26.70},
-//     {designation:"Pose Tuyau pol HD 25", valeur : 26.70},
-//     {designation:"Pose Tuyau pol HD 50", valeur : 26.70},
-//     {designation:"Pose Appareils", valeur : 133.56},
-//     {designation:"Installation de la prise", valeur : 191.37},
-//     {designation: "T.V.A", valeur : 0.20},
-//     {designation:"Frais intervention", valeur : 0.15},
-// ];
-
-// localStorage.setItem("fixe", JSON.stringify(elements));
-
-
 const elements = JSON.parse(localStorage.getItem("fixe"));
 
 //fetch data
