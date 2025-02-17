@@ -81,15 +81,15 @@ const handleDevis = () => {
                     <td>${montant_tva.toFixed(2)}</td>
                 </tr>
                  <tr>
-                    <td>Taxe rivéraine ${riveraine === 0 ? `Réglée par ${motif ? motif : ""}` : "" }</td>
+                    <td>Taxe rivéraine ${riveraine === 0 ? (motif ? `Réglée par ${motif}` : "") : "" }</td>
                     <td></td>
                     <td></td>
                     <td>${riveraine}</td>       
                 </tr>
                 <tr>
                     <td>TOTAL GÉNÉRAL TTC</td>
-                    <td>--------</td>
-                    <td>--------</td>
+                    <td></td>
+                    <td></td>
                     <td>${(total).toFixed(2)}</td>
                 </tr>
              `;
