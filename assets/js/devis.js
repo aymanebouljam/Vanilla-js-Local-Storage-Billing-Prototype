@@ -104,6 +104,56 @@ window.onload = () => {
     handleDevis();
 };
 
+// Numbers to words
+function numberToFrenchWords(number) {
+    const ones = ["", "un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf"];
+    const teens = ["dix", "onze", "douze", "treize", "quatorze", "quinze", "seize", "dix-sept", "dix-huit", "dix-neuf"];
+    const tens = ["", "dix", "vingt", "trente", "quarante", "cinquante", "soixante", "soixante", "quatre-vingt", "quatre-vingt"];
+
+    if (number === 0) return "zéro";
+
+    if (number < 10) return ones[number];
+
+    if (number < 20) return teens[number - 10];
+
+    if (number < 100) {
+        let ten = Math.floor(number / 10);
+        let unit = number % 10;
+        let separator = unit === 1 && ten !== 8 ? " et " : "-";
+
+        if (ten === 7 || ten === 9) {
+            return tens[ten] + separator + teens[unit];
+        } else {
+            return tens[ten] + (unit ? separator + ones[unit] : "");
+        }
+    }
+
+    if (number < 1000) {
+        let hundred = Math.floor(number / 100);
+        let remainder = number % 100;
+        let hundredPrefix = hundred > 1 ? ones[hundred] + " cent" : "cent";
+
+        return hundredPrefix + (remainder ? " " + numberToFrenchWords(remainder) : "");
+    }
+
+    return number.toString(); 
+}
+
+// Handle decimal
+function convertTotalToWords(total) {
+    const [integerPart, decimalPart] = total.toFixed(2).split("."); 
+
+    const integerWords = numberToFrenchWords(parseInt(integerPart)) + " Dirhams";
+    const decimalWords = parseInt(decimalPart) > 0 
+        ? " et " + numberToFrenchWords(parseInt(decimalPart)) + " Centimes" 
+        : "";
+
+    return integerWords + decimalWords;
+}
+
+
+
+
 //export excel format
 
 function handleExportTable() {
@@ -137,45 +187,82 @@ function handleExportTable() {
 
     const globalFont = { size: 14, bold: false };
 
-    const headers = [
-        ["ROYAUME DU MAROC"], 
-        ["OFFICE NATIONAL DE L'ÉLECTRICITÉ ET DE L'EAU POTABLE"],   
-        ["BRANCHE EAU"],
-        ["DIRECTION RÉGIONALE: GUELMIM"], 
-        ["CENTRE: BOUIZAKARNE"],
-        ["C.C.P.N°: 106-28-C"],
-        [`BOUIZAKARNE LE: ${year}`],
-        ["Facture EG N°...................."],
-        [""], 
-        [`OBJET: ${typeBranch.toUpperCase()} ${nourice.toUpperCase()}`],
-        [""], 
-        [`(Nom du Tiers): ${nom.toUpperCase()} ${prénom.toUpperCase()}`],
-        [`POLICE: ${police}`],
-        [""], 
-    ];
+ //
+// First Row: "ROYAUME DU MAROC" (Left) & "Facture EG..." (Right)
+worksheet.getCell("A1").value = "ROYAUME DU MAROC";
+worksheet.getCell("D1").value = "Facture EG N°....................";
+worksheet.mergeCells("A1:B1");
+worksheet.getCell("A1").alignment = { horizontal: "left", vertical: "middle" };
+worksheet.getCell("D1").alignment = { horizontal: "right", vertical: "middle" };
+worksheet.getCell("D1").font = { bold: true };
 
-    headers.forEach((row, index) => {
-        const excelRow = worksheet.addRow(row);
-        const cell = excelRow.getCell(1);
-    
-        worksheet.mergeCells(`A${index + 1}:D${index + 1}`);
-    
-        cell.alignment = { horizontal: "center" , vertical: "middle",  wrapText: true };
-        cell.font = globalFont;
-        
-        
-        if ([6,11,12].includes(index)) {
-            cell.alignment = { horizontal: "left" , vertical: "middle",  wrapText: true };
-            cell.font = { bold : true };
-        }else if([7].includes(index)){
-            cell.alignment = { horizontal : "right" , vertical: "middle",  wrapText: true };
-            cell.font = { bold : true };
-        }else if([9].includes(index)){
-            cell.font = { bold : true };
-        }
-    });
+// Second Row: "OFFICE NATIONAL..." (Left) & "BOUIZAKARNE LE..." (Right)
+worksheet.getCell("A2").value = "OFFICE NATIONAL DE L'ÉLECTRICITÉ ET DE L'EAU POTABLE";
+worksheet.getCell("D2").value = `BOUIZAKARNE LE: ${year}`;
+worksheet.mergeCells("A2:B2");
+worksheet.getCell("A2").alignment = { horizontal: "left", vertical: "middle" };
+worksheet.getCell("D2").alignment = { horizontal: "right", vertical: "middle" };
+worksheet.getCell("D2").font = { bold: true };
 
-    let tableStartRow = headers.length + 1;
+// Third Row: "BRANCHE EAU"
+worksheet.getCell("A3").value = "BRANCHE EAU";
+worksheet.mergeCells("A3:D3");
+worksheet.getCell("A3").alignment = { horizontal: "left", vertical: "middle" };
+
+
+// Fourth Row: "DIRECTION RÉGIONALE: GUELMIM"
+worksheet.getCell("A4").value = "DIRECTION RÉGIONALE: GUELMIM";
+worksheet.mergeCells("A4:D4");
+worksheet.getCell("A4").alignment = { horizontal: "left", vertical: "middle" };
+
+// Fifth Row: "CENTRE: BOUIZAKARNE"
+worksheet.getCell("A5").value = "CENTRE: BOUIZAKARNE";
+worksheet.mergeCells("A5:D5");
+worksheet.getCell("A5").alignment = { horizontal: "left", vertical: "middle" };
+
+// Sixth Row: "C.C.P.N°: 106-28-C"
+worksheet.getCell("A6").value = "C.C.P.N°: 106-28-C";
+worksheet.mergeCells("A6:D6");
+worksheet.getCell("A6").alignment = { horizontal: "left", vertical: "middle" };
+
+// Empty Row for Spacing
+worksheet.getCell("A7").value = "";
+worksheet.mergeCells("A7:D7");
+
+// Eighth Row: "OBJET: ..."
+worksheet.getCell("A8").value = `OBJET: ${typeBranch.toUpperCase()} ${nourice.toUpperCase()}`;
+worksheet.mergeCells("A8:D8");
+worksheet.getCell("A8").alignment = { horizontal: "left", vertical: "middle" };
+worksheet.getCell("A8").font = { bold: true };
+
+// Empty Row for Spacing
+worksheet.getCell("A9").value = "";
+worksheet.mergeCells("A9:D9");
+
+// Tenth Row: "(Nom du Tiers): ..."
+worksheet.getCell("A10").value = `(Nom du Tiers): ${nom.toUpperCase()} ${prénom.toUpperCase()}`;
+worksheet.mergeCells("A10:D10");
+worksheet.getCell("A10").alignment = { horizontal: "center", vertical: "middle" };
+worksheet.getCell("A10").font = { bold: true };
+
+// Eleventh Row: "POLICE: ..."
+worksheet.getCell("A11").value = `POLICE: ${police}`;
+worksheet.mergeCells("A11:D11");
+worksheet.getCell("A11").alignment = { horizontal: "center", vertical: "middle" };
+worksheet.getCell("A11").font = { bold: true };
+
+// Empty Row for Spacing
+worksheet.getCell("A12").value = "";
+worksheet.mergeCells("A12:D12");
+
+
+
+
+
+ //
+
+let tableStartRow = worksheet.rowCount + 1;
+
     const rows = table.querySelectorAll("tr");
     
     rows.forEach((row) => {
@@ -215,8 +302,11 @@ function handleExportTable() {
             col.width = 20;
         }
     });
+
+    const totalInWords = convertTotalToWords(total);
+    const capitalizedTotalInWords = totalInWords.charAt(0).toUpperCase() + totalInWords.slice(1);
     worksheet.headerFooter = {
-        oddFooter: `Arrêtée la présente facture à la somme de: ${total.toFixed(2)} Dirhams.`
+        oddFooter: `Arrêtée la présente facture à la somme de: ${totalInWords}.`
     };
     
     workbook.xlsx.writeBuffer().then((buffer) => {
@@ -248,44 +338,65 @@ function handleExportToPDF() {
 
     const doc = new jsPDF();
 
-    // Define headers
-    const headers = [
-        { text: "ROYAUME DU MAROC", align: "center" },
-        { text: "OFFICE NATIONAL DE L'ÉLECTRICITÉ ET DE L'EAU POTABLE", align: "center" },
-        { text: "BRANCHE EAU", align: "center" },
-        { text: "DIRECTION RÉGIONALE: GUELMIM", align: "center" },
-        { text: "CENTRE: BOUIZAKARNE", align: "center"},
-        { text: "C.C.P.N°: 106-28-C", align: "center" },
-        { text: `BOUIZAKARNE LE: ${formattedDate}`, align: "left" },
-        { text: "Facture EG N°....................", align: "right" },
-        { text: "", align: "center" },
-        { text: `OBJET: ${typeBranch.toUpperCase()} ${nourice.toUpperCase()}`, align: "center" },
-        { text: "", align: "center" },
-        { text: `(Nom du Tiers): ${nom.toUpperCase()} ${prénom.toUpperCase()}`, align: "left" },
-        { text: `POLICE: ${police}`, align: "left" }
-    ];
+   //
+   const headers = [
+    { text: "ROYAUME DU MAROC", align: "left", x: 20, y: 10 },
+    { text: "Facture EG N°....................", align: "right", x: doc.internal.pageSize.width - 20, y: 10 },
 
-    // Set global font size
-    doc.setFontSize(10);
-    doc.setLineHeightFactor(1.0);
+    { text: "OFFICE NATIONAL DE L'ÉLECTRICITÉ ET DE L'EAU POTABLE", align: "left", x: 20, y: 18 },
+    { text: `BOUIZAKARNE LE: ${formattedDate}`, align: "right", x: doc.internal.pageSize.width - 20, y: 18 },
 
-   // Add headers to PDF with different alignments
-   headers.forEach((header, index) => {
-    const pageWidth = doc.internal.pageSize.width;
+    { text: "BRANCHE EAU", align: "left", x: 20, y: 26 },
+
+    { text: "DIRECTION RÉGIONALE: GUELMIM", align: "left", x: 20, y: 34 },
+    { text: "CENTRE: BOUIZAKARNE", align: "left", x: 20, y: 42 },
+    { text: "C.C.P.N°: 106-28-C", align: "left", x: 20, y: 50 },
+
+    { text: "", align: "center", x: doc.internal.pageSize.width / 2, y: 58 }, // Empty spacing row
+
+    { text: `OBJET: ${typeBranch.toUpperCase()} ${nourice.toUpperCase()}`, align: "left", x: 20, y: 66 },
+
+    { text: "", align: "center", x: doc.internal.pageSize.width / 2, y: 74 }, // Empty spacing row
+
+    { text: `(Nom du Tiers): ${nom.toUpperCase()} ${prénom.toUpperCase()}`, align: "center", x: doc.internal.pageSize.width / 2, y: 82 },
+
+    { text: `POLICE: ${police}`, align: "center", x: doc.internal.pageSize.width / 2, y: 90 },
+
+    // Additional empty rows for spacing before the table
+    { text: "", align: "center", x: doc.internal.pageSize.width / 2, y: 98 },
+    { text: "", align: "center", x: doc.internal.pageSize.width / 2, y: 106 },
+    { text: "", align: "center", x: doc.internal.pageSize.width / 2, y: 114 },
+];
+
+
+
+// Set global font size and line height
+doc.setFontSize(10);
+doc.setLineHeightFactor(1.0);
+
+// Add headers to PDF with different alignments
+headers.forEach((header,index) => {
     const textWidth = doc.getStringUnitWidth(header.text) * doc.internal.getFontSize() / doc.internal.scaleFactor;
-    
-    let x;
-    if (header.align === "center") {
-        x = (pageWidth - textWidth) / 2;
-    } else if (header.align === "left") {
-        x = 20; 
-    } else if(header.align === "right"){
-        x = pageWidth - textWidth - 20;
+
+    if ([1,3,9,10,11].includes(index)) { // This is the header "ROYAUME DU MAROC"
+        doc.setFont("helvetica", "bold"); // Set font to bold
+    } else {
+        doc.setFont("helvetica", "normal"); // Set font back to normal
     }
     
-    doc.text(header.text, x, 10 + index * 5);
+    // Align text according to the defined positions
+    if (header.align === "left") {
+        doc.text(header.text, header.x, header.y);
+    } else if (header.align === "center") {
+        let x = (doc.internal.pageSize.width - textWidth) / 2; // Center-align
+        doc.text(header.text, x, header.y);
+    } else if (header.align === "right") {
+        doc.text(header.text, header.x - textWidth, header.y); // Right-align
+    }
 });
 
+
+   //
 
     // Extract table data
     const tableData = [];
@@ -349,8 +460,9 @@ function handleExportToPDF() {
     // Set font size for footer
     doc.setFontSize(10);
 
-
-    const totalText = `Arrêtée la présente facture à la somme de: ${total.toFixed(2)} Dirhams.`;
+    const totalInWords = convertTotalToWords(total);
+    const capitalizedTotalInWords = totalInWords.charAt(0).toUpperCase() + totalInWords.slice(1);
+    const totalText = `Arrêtée la présente facture à la somme de: ${capitalizedTotalInWords}.`;
     doc.text(totalText, 20, finalY + 20);
 
     // Save the PDF
