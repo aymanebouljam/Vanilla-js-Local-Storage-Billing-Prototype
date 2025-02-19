@@ -138,20 +138,42 @@ function numberToFrenchWords(number) {
         let remainder = number % 100;
         let hundredPrefix = hundred > 1 ? ones[hundred] + " cent" : "cent";
 
-        return hundredPrefix + (remainder ? " " + numberToFrenchWords(remainder) : "");
+        return hundredPrefix + (remainder ? (hundred > 1 && remainder < 10 ? " " : " ") + numberToFrenchWords(remainder) : "");
     }
 
-    return number.toString(); 
+    if (number < 1000000) {
+        let thousand = Math.floor(number / 1000);
+        let remainder = number % 1000;
+        let thousandPrefix = thousand === 1 ? "mille" : numberToFrenchWords(thousand) + " mille";
+
+        return thousandPrefix + (remainder ? " " + numberToFrenchWords(remainder) : "");
+    }
+
+    if (number < 1000000000) {
+        let million = Math.floor(number / 1000000);
+        let remainder = number % 1000000;
+        let millionPrefix = million === 1 ? "un million" : numberToFrenchWords(million) + " millions";
+
+        return millionPrefix + (remainder ? " " + numberToFrenchWords(remainder) : "");
+    }
+
+    return number.toString();
 }
+
+
 
 // Handle decimal
 function convertTotalToWords(total) {
     const [integerPart, decimalPart] = total.toFixed(2).split("."); 
 
     const integerWords = numberToFrenchWords(parseInt(integerPart)) + " Dirhams";
-    const decimalWords = parseInt(decimalPart) > 0 
-        ? " et " + numberToFrenchWords(parseInt(decimalPart)) + " Centimes" 
-        : "";
+    const decimalValue = parseInt(decimalPart);
+
+    let decimalWords = "";
+    if (decimalValue > 0) {
+        decimalWords = " et " + numberToFrenchWords(decimalValue) + 
+                       (decimalValue === 1 ? " Centime" : " Centimes");
+    }
 
     return integerWords + decimalWords;
 }
@@ -172,7 +194,7 @@ function handleExportTable() {
     const nourice = typeBranch === "déplacement de la niche" ? "" : `nourice à ${compteur} ${compteur > 1 ?"compteurs" : "compteur"}`;
 
     const currentDate = new Date();
-    const year = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
+    const year = `${currentDate.getDate().toString().padStart(2, '0')}/${(currentDate.getMonth() + 1).toString().padStart(2, '0')}/${currentDate.getFullYear()}`;
 
 
     if (!data) {
@@ -334,7 +356,8 @@ function handleExportToPDF() {
     const nourice = typeBranch === "déplacement de la niche" ? "" : `nourice à ${compteur} ${compteur > 1 ? "compteurs" : "compteur"}`;
 
     const currentDate = new Date();
-    const formattedDate = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
+    const formattedDate = `${currentDate.getDate().toString().padStart(2, '0')}/${(currentDate.getMonth() + 1).toString().padStart(2, '0')}/${currentDate.getFullYear()}`;
+
 
     const doc = new jsPDF();
 
@@ -379,7 +402,7 @@ doc.setLineHeightFactor(1.0);
 headers.forEach((header,index) => {
     const textWidth = doc.getStringUnitWidth(header.text) * doc.internal.getFontSize() / doc.internal.scaleFactor;
 
-    if ([1,3,9,10,11].includes(index)) { 
+    if ([11,13,14].includes(index)) { 
         doc.setFont("helvetica", "bold"); 
     } else {
         doc.setFont("helvetica", "normal"); 
@@ -416,7 +439,7 @@ headers.forEach((header,index) => {
         didParseCell: function(data) {
            
             const isLastFourRows = (data.row.index >= tableData.length - 6 && data.row.index !== tableData.length - 3) && data.row.index < tableData.length - 1;
-      
+     
            
             if (isLastFourRows && data.column.index === 0) {
                 data.cell.colSpan = 3;
