@@ -402,7 +402,7 @@ doc.setLineHeightFactor(1.0);
 headers.forEach((header,index) => {
     const textWidth = doc.getStringUnitWidth(header.text) * doc.internal.getFontSize() / doc.internal.scaleFactor;
 
-    if ([11,13,14].includes(index)) { 
+    if ([2,4,10,12,13].includes(index)) { 
         doc.setFont("helvetica", "bold"); 
     } else {
         doc.setFont("helvetica", "normal"); 
