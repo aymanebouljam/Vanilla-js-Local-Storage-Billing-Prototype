@@ -71,7 +71,7 @@ const handleDevis = () => {
                 <tr>
                     <td>Total HT</td>
                     <td></td>
-                    <td>/td>
+                    <td></td>
                     <td>${(somme + installationPrise).toFixed(2)}</td>
                 </tr>
                 <tr>
@@ -287,7 +287,7 @@ worksheet.mergeCells("A12:D12");
     for(let i=16; i<= lastRowIndex; i++){
         worksheet.getCell(`A${i}`).alignment = { horizontal : "left",  vertical: "middle",  wrapText: true };
     };
-    const liste = [0,1,2,3,4];
+    const liste = [0,2,3,4];
     liste.forEach(n => {
         worksheet.mergeCells(`A${lastRowIndex - n}:C${lastRowIndex - n}`);
     });
@@ -340,6 +340,7 @@ function handleExportToPDF() {
 
    //
    const headers = [
+    { text: "", align: "center", x: doc.internal.pageSize.width / 2, y: 98 },
     { text: "ROYAUME DU MAROC", align: "left", x: 20, y: 10 },
     { text: "Facture EG N°....................", align: "right", x: doc.internal.pageSize.width - 20, y: 10 },
 
@@ -352,17 +353,17 @@ function handleExportToPDF() {
     { text: "CENTRE: BOUIZAKARNE", align: "left", x: 20, y: 42 },
     { text: "C.C.P.N°: 106-28-C", align: "left", x: 20, y: 50 },
 
-    { text: "", align: "center", x: doc.internal.pageSize.width / 2, y: 58 }, // Empty spacing row
+    { text: "", align: "center", x: doc.internal.pageSize.width / 2, y: 58 }, 
 
     { text: `OBJET: ${typeBranch.toUpperCase()} ${nourice.toUpperCase()}`, align: "left", x: 20, y: 66 },
 
-    { text: "", align: "center", x: doc.internal.pageSize.width / 2, y: 74 }, // Empty spacing row
+    { text: "", align: "center", x: doc.internal.pageSize.width / 2, y: 74 }, 
 
     { text: `(Nom du Tiers): ${nom.toUpperCase()} ${prénom.toUpperCase()}`, align: "center", x: doc.internal.pageSize.width / 2, y: 82 },
 
     { text: `POLICE: ${police}`, align: "center", x: doc.internal.pageSize.width / 2, y: 90 },
 
-    // Additional empty rows for spacing before the table
+   
     { text: "", align: "center", x: doc.internal.pageSize.width / 2, y: 98 },
     { text: "", align: "center", x: doc.internal.pageSize.width / 2, y: 106 },
     { text: "", align: "center", x: doc.internal.pageSize.width / 2, y: 114 },
@@ -378,25 +379,22 @@ doc.setLineHeightFactor(1.0);
 headers.forEach((header,index) => {
     const textWidth = doc.getStringUnitWidth(header.text) * doc.internal.getFontSize() / doc.internal.scaleFactor;
 
-    if ([1,3,9,10,11].includes(index)) { // This is the header "ROYAUME DU MAROC"
-        doc.setFont("helvetica", "bold"); // Set font to bold
+    if ([1,3,9,10,11].includes(index)) { 
+        doc.setFont("helvetica", "bold"); 
     } else {
-        doc.setFont("helvetica", "normal"); // Set font back to normal
+        doc.setFont("helvetica", "normal"); 
     }
     
     // Align text according to the defined positions
     if (header.align === "left") {
         doc.text(header.text, header.x, header.y);
     } else if (header.align === "center") {
-        let x = (doc.internal.pageSize.width - textWidth) / 2; // Center-align
+        let x = (doc.internal.pageSize.width - textWidth) / 2; 
         doc.text(header.text, x, header.y);
     } else if (header.align === "right") {
-        doc.text(header.text, header.x - textWidth, header.y); // Right-align
+        doc.text(header.text, header.x - textWidth, header.y); 
     }
 });
-
-
-   //
 
     // Extract table data
     const tableData = [];
@@ -417,15 +415,15 @@ headers.forEach((header,index) => {
         startY: 10 + headers.length * 5 + 5,
         didParseCell: function(data) {
            
-            const isLastFiveRows = data.row.index >= tableData.length - 6 && data.row.index < tableData.length - 1;
-            
+            const isLastFourRows = (data.row.index >= tableData.length - 6 && data.row.index !== tableData.length - 3) && data.row.index < tableData.length - 1;
+      
            
-            if (isLastFiveRows && data.column.index === 0) {
+            if (isLastFourRows && data.column.index === 0) {
                 data.cell.colSpan = 3;
             }
             
           
-            if (isLastFiveRows && (data.column.index === 1 || data.column.index === 2)) {
+            if (isLastFourRows && (data.column.index === 1 || data.column.index === 2)) {
                 data.cell.text = '';
                 };
 
