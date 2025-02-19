@@ -2,12 +2,10 @@
 const nom = document.getElementById("nom");
 const prénom= document.getElementById("prénom");
 const objet = document.getElementById("objet");
-const quantité = document.getElementById("quantité");
-const checkbox = document.getElementsByClassName("checkbox");
 const compteurContainer = document.getElementById("compteur-container");
 const policeContainer = document.getElementById("police-container");
 const typeContainer = document.getElementById("type-container");
-const form = document.getElementById("facture");
+
 
 //handle select
 const handleSelect = (event) => {
@@ -81,6 +79,10 @@ const handleForm = (event) => {
     const police = document.getElementById("police");
     const riveraine = document.getElementById("riveraine");
     const motif = document.getElementById("motif");
+    const mtriveraine = document.getElementById("mtriveraine");
+    const longueur = document.getElementById("longueur");
+    const largeur = document.getElementById("largeur");
+    const étages = document.getElementById("étages");
   
 
     if(compteur && Number(compteur.value) == 0){
@@ -95,8 +97,12 @@ const handleForm = (event) => {
         typeBranch : typeBranch ? typeBranch.value : "déplacement de la niche",
         police : police ? police.value : "",
         compteur : compteur ? Number(compteur.value) : 1,
-        riveraine : Number(riveraine.value) > 0 ? Number(riveraine.value) : 0,
+        riveraine : Number(riveraine.value),
+        mtriveraine : Number(mtriveraine.value),
         motif : motif ? motif.value : "",
+        longueur : longueur ? Number(longueur.value) : "",
+        largeur : largeur ? Number(largeur.value) : "",
+        étages : étages ? Number(étages.value) : "",
     }
     localStorage.setItem("data", JSON.stringify(formData));
     window.location.href = "table.html";
