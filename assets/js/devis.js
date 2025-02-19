@@ -254,14 +254,9 @@ worksheet.getCell("A11").font = { bold: true };
 // Empty Row for Spacing
 worksheet.getCell("A12").value = "";
 worksheet.mergeCells("A12:D12");
-
-
-
-
-
  //
 
-let tableStartRow = worksheet.rowCount + 1;
+    let tableStartRow = worksheet.rowCount + 1;
 
     const rows = table.querySelectorAll("tr");
     
@@ -306,12 +301,12 @@ let tableStartRow = worksheet.rowCount + 1;
     const totalInWords = convertTotalToWords(total);
     const capitalizedTotalInWords = totalInWords.charAt(0).toUpperCase() + totalInWords.slice(1);
     worksheet.headerFooter = {
-        oddFooter: `Arrêtée la présente facture à la somme de: ${totalInWords}.`
+        oddFooter: `Arrêtée la présente facture à la somme de: ${capitalizedTotalInWords}.`
     };
     
     workbook.xlsx.writeBuffer().then((buffer) => {
         const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
-        saveAs(blob, "facture_EG.xlsx");
+        saveAs(blob, `${nom}_${prénom}.xlsx`);
     });
 }
 
@@ -466,7 +461,7 @@ headers.forEach((header,index) => {
     doc.text(totalText, 20, finalY + 20);
 
     // Save the PDF
-    doc.save('facture_EG.pdf');
+    doc.save(`${nom}_${prénom}.pdf`);
 
 }
 
