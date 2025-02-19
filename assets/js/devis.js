@@ -88,7 +88,7 @@ const handleDevis = () => {
                 </tr>
                  <tr>
                     <td>Taxe riveraine: ${riveraine === 0 ? (motif ? `Réglée par ${motif}` : "") : `${longueur.toFixed(2)} x ${largeur.toFixed(2)} ${étages === 0 ? "RDC" : `R+${étages}` }` }</td>
-                    <td>${riveraine.toFixed(2)}</td>
+                    <td>${riveraine == 0 ? 0 : riveraine.toFixed(2)}</td>
                     <td>${mtriveraine.toFixed(2)}</td>
                     <td>${(riveraine * mtriveraine).toFixed(2)}</td>       
                 </tr>
