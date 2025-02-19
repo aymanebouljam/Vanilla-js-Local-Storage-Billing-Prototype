@@ -254,11 +254,6 @@ worksheet.getCell("A11").font = { bold: true };
 // Empty Row for Spacing
 worksheet.getCell("A12").value = "";
 worksheet.mergeCells("A12:D12");
-
-
-
-
-
  //
 
     let tableStartRow = worksheet.rowCount + 1;
@@ -306,7 +301,7 @@ worksheet.mergeCells("A12:D12");
     const totalInWords = convertTotalToWords(total);
     const capitalizedTotalInWords = totalInWords.charAt(0).toUpperCase() + totalInWords.slice(1);
     worksheet.headerFooter = {
-        oddFooter: `Arrêtée la présente facture à la somme de: ${totalInWords}.`
+        oddFooter: `Arrêtée la présente facture à la somme de: ${capitalizedTotalInWords}.`
     };
     
     workbook.xlsx.writeBuffer().then((buffer) => {
