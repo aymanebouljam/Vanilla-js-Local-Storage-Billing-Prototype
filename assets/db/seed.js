@@ -36,7 +36,7 @@ const seedPieces = () => {
             { 'designation': 'POSE Appareils', 'prix_unitaire': 133.56 },
         ];
             localStorage.setItem("piècesList", JSON.stringify(pieces));
-            alert("Data seed successful !");
+            alert("Insertion réussite !");
             window.location.reload();
         }
 };
@@ -53,7 +53,7 @@ const seedFees = () => {
         ];
             localStorage.setItem('fixe', JSON.stringify(elements));
         
-            alert("Data seed successful !");
+            alert("Insertion réussite !");
             window.location.reload();
    }
 }
