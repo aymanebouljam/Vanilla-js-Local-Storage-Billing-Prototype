@@ -23,8 +23,7 @@
             </ul>
         </div>
         <div class="card  shadow w-75 h-100 ms-5 px-5 py-4">
-            <h3 class="text-center">Facture Entretien Général</h3>
-            <hr>
+
             <form onsubmit="handleForm(event)" id="facture">
                 <div class="form-group my-3">
                     <input type="text" placeholder="Nom de client" class="form-control border-2" id="nom" required>
@@ -47,8 +46,10 @@
                 <div class="form-group my-3 d-flex align-items-center justify-content-evenly w-50" id="compteur-container">
                 </div>
                 <div class="form-group my-3 d-flex align-items-center w-75 gap-3">
-                    <input type="text" id="riveraine" class="form-control w-50" oninput="handleRiveraine(event)" placeholder="Taux de la taxe riveraine">
-                    <input type="text" id="mtriveraine" class="form-control w-50" onchange="handleRiveraineMt(event)" placeholder="Montant de la taxe riveraine">
+                    <input type="text" id="riveraine" class="form-control w-50" oninput="handleRiveraine(event)" placeholder="Taux de la taxe riveraine" required>
+                    <input type="text" id="mtriveraine" class="form-control w-50" onchange="handleRiveraineMt(event)" placeholder="Montant de la taxe riveraine" required>
+                </div>
+                <div class="form-group my-3 d-flex align-items-center w-100 gap-3" id="surfaceContainer">
                 </div>
                 <div class="form-group my-3" id="motifContainer">
                     <input type="text" class="form-control" id="motif" placeholder="Motif de dispense">
