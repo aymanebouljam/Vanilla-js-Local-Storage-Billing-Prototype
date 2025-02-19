@@ -58,7 +58,7 @@ const handleDevis = () => {
             const ht = somme + installationPrise;
             const intervention =  ht * frais_intervention;
             const montant_tva = (ht + (ht * frais_intervention)) * tva;
-            total = ht + intervention + montant_tva + riveraine;
+            total = ht + intervention + montant_tva + (riveraine * mtriveraine);
             
         
              tdevis.innerHTML += `
