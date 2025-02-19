@@ -74,7 +74,7 @@ const handleForm = (event) => {
     const police = document.getElementById("police");
     const riveraine = document.getElementById("riveraine");
     const motif = document.getElementById("motif");
-    console.log(riveraine.value, motif?.value)
+  
 
     if(compteur && Number(compteur.value) == 0){
         alert("Veuillez saisir le nombre des compteurs");
