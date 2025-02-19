@@ -12,6 +12,10 @@ let total = 0;
 const handleDevis = () => {
     const data = JSON.parse(localStorage.getItem("data"));
     const riveraine = data.riveraine;
+    const mtriveraine = data.mtriveraine;
+    const longueur = data.longueur;
+    const largeur= data.largeur;
+    const étages = data.étages;
     const motif = data.motif;
     const tdevis = document.getElementById("tableDevis");
     const elements = JSON.parse(localStorage.getItem("fixe"));
@@ -83,10 +87,10 @@ const handleDevis = () => {
                     <td>${montant_tva.toFixed(2)}</td>
                 </tr>
                  <tr>
-                    <td>Taxe riveraine: ${riveraine === 0 ? (motif ? `Réglée par ${motif}` : "") : `${data.longueur}X${data.largeur} ${data.étages === 0 ? "RDC" : `R+${data.étages}` }` }</td>
-                    <td></td>
-                    <td></td>
-                    <td>${riveraine}</td>       
+                    <td>Taxe riveraine: ${riveraine === 0 ? (motif ? `Réglée par ${motif}` : "") : `${longueur}X${largeur} ${étages === 0 ? "RDC" : `R+${étages}` }` }</td>
+                    <td>${riveraine.toFixed(2)}</td>
+                    <td>${mtriveraine.toFixed(2)}</td>
+                    <td>${(riveraine * mtriveraine).toFixed(2)}</td>       
                 </tr>
                 <tr>
                     <td>TOTAL GÉNÉRAL TTC</td>
