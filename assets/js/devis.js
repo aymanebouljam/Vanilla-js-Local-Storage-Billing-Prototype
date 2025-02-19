@@ -55,6 +55,7 @@ const handleDevis = () => {
             const intervention =  ht * frais_intervention;
             const montant_tva = (ht + (ht * frais_intervention)) * tva;
             total = ht + intervention + montant_tva + riveraine;
+            
         
              tdevis.innerHTML += `
                 <tr>
@@ -82,7 +83,7 @@ const handleDevis = () => {
                     <td>${montant_tva.toFixed(2)}</td>
                 </tr>
                  <tr>
-                    <td>Taxe riveraine: ${riveraine === 0 ? (motif ? `Réglée par ${motif}` : "") : "" }</td>
+                    <td>Taxe riveraine: ${riveraine === 0 ? (motif ? `Réglée par ${motif}` : "") : `${data.longueur}X${data.largeur} ${data.étages === 0 ? "RDC" : `R+${data.étages}` }` }</td>
                     <td></td>
                     <td></td>
                     <td>${riveraine}</td>       

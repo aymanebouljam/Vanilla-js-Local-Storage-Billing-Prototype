@@ -102,7 +102,7 @@ const handleForm = (event) => {
         motif : motif ? motif.value : "",
         longueur : longueur ? Number(longueur.value) : "",
         largeur : largeur ? Number(largeur.value) : "",
-        étages : étages ? Number(étages.value) : "",
+        étages : étages ? parseInt(étages.value) : "",
     }
     localStorage.setItem("data", JSON.stringify(formData));
     window.location.href = "table.html";
