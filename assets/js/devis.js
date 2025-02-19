@@ -261,7 +261,7 @@ worksheet.mergeCells("A12:D12");
 
  //
 
-let tableStartRow = worksheet.rowCount + 1;
+    let tableStartRow = worksheet.rowCount + 1;
 
     const rows = table.querySelectorAll("tr");
     
@@ -311,7 +311,7 @@ let tableStartRow = worksheet.rowCount + 1;
     
     workbook.xlsx.writeBuffer().then((buffer) => {
         const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
-        saveAs(blob, "facture_EG.xlsx");
+        saveAs(blob, `${nom}_${prénom}.xlsx`);
     });
 }
 
@@ -466,7 +466,7 @@ headers.forEach((header,index) => {
     doc.text(totalText, 20, finalY + 20);
 
     // Save the PDF
-    doc.save('facture_EG.pdf');
+    doc.save(`${nom}_${prénom}.pdf`);
 
 }
 
