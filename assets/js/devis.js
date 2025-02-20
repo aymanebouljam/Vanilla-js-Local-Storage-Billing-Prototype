@@ -524,7 +524,10 @@ headers.forEach((header,index) => {
 
     const totalInWords = convertTotalToWords(total);
     const capitalizedTotalInWords = totalInWords.charAt(0).toUpperCase() + totalInWords.slice(1);
-    const totalText = `Arrêtée la présente facture à la somme de: ${capitalizedTotalInWords}.`;
+    const totalText = 
+    `Arrêtée la présente facture à la somme de: 
+
+    * ${capitalizedTotalInWords}.`;
     doc.text(totalText, 20, finalY + 20);
 
     // Save the PDF
