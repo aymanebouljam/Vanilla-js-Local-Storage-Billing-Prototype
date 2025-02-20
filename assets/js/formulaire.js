@@ -12,34 +12,25 @@ const handleSelect = (event) => {
     const selected = event.target.value;
     typeContainer.innerHTML = "";
     policeContainer.innerHTML = "";
-    compteurContainer.innerHTML = "";
+    
 
     if(selected === "nouveau branchement"){
         typeContainer.innerHTML = `
-            <select class="form-control border-2"  id="typeBranch" required>
+            <select class="form-control border-2"  id="typeBranch" onchange="handleType(event)" required>
                 <option value="">-- Type de Branchement --</option>
                 <option value="branchement en poly 25">Branchement 25</option>
                 <option value="branchement en poly 50">Branchement 50</option>
             </select>
         `;
-        compteurContainer.innerHTML = `
-            <label class="form-label fs-5">Nombre de compteurs :</label>
-            <input type="number" value="0" min="0" id="compteur" class="form-control w-25" required>
-        `;
-
     }else if(selected === "modification de branchement"){
         typeContainer.innerHTML = `
-        <select class="form-control border-2"  id="typeBranch" required>
+        <select class="form-control border-2"  id="typeBranch" onchange="handleType(event)" required>
             <option value="">-- Type de Branchement --</option>
             <option value="modification de branchement de 1/2 à 3/4">Modification 20 à 25</option>
             <option value='modification de branchement de 1/2 à 1"1/2'>Modification 20 à 50</option>
             <option value='modification de branchement de 3/4 à 1"1/2'>Modification 25 à 50</option>
         </select>
     `;
-        compteurContainer.innerHTML = `
-            <label class="form-label fs-5">Nombre de compteurs :</label>
-            <input type="number" value="0" min="0" id="compteur" class="form-control w-25" required>
-        `;
         policeContainer.innerHTML = ` 
             <input type="text" placeholder="N° de Police" class="form-control" id="police" required>
         `;
@@ -47,6 +38,22 @@ const handleSelect = (event) => {
         policeContainer.innerHTML = ` 
         <input type="text" placeholder="N° de Police" class="form-control" id="police" required>
         `;
+    }
+};
+
+// handle Type
+const handleType = (event) => {
+    compteurContainer.innerHTML = "";
+    const type = event.target.value;
+    if(type === "branchement en poly 25" || type === "modification de branchement de 1/2 à 3/4"){
+        compteurContainer.innerHTML = "";
+
+    }else{
+        compteurContainer.innerHTML = `
+        <label class="form-label fs-5">Nombre de compteurs :</label>
+        <input type="number" value="2" min="0" id="compteur" class="form-control w-25" required>
+    `;
+
     }
 };
 
@@ -96,7 +103,7 @@ const handleForm = (event) => {
         objet : objet.value,
         typeBranch : typeBranch ? typeBranch.value : "déplacement de la niche",
         police : police ? police.value : "",
-        compteur : compteur ? Number(compteur.value) : 1,
+        compteur : compteur ? Number(compteur.value) : 2,
         riveraine : Number(riveraine.value),
         mtriveraine : Number(mtriveraine.value),
         motif : motif ? motif.value : "",
