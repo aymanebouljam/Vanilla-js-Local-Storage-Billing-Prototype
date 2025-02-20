@@ -28,9 +28,9 @@ const seedPieces = () => {
             { "designation": "Clapet RE 1/2", "prix_unitaire": 14.13 },
             { "designation": 'Clapet RE 1"1/4', "prix_unitaire": 64.89 },
             { "designation": 'Clapet RE 1"1/2', "prix_unitaire": 74.43 },
-            { "designation": "Confection de Niche GM", "prix_unitaire": 155.77 },
             { "designation": "Pose Tuyau pol HD 25", "prix_unitaire": 26.70 },
             { "designation": "Pose Tuyau pol HD 50", "prix_unitaire": 26.70 },
+            { "designation": "Manchon SRF 1/2", "prix_unitaire": 38.52 },
           ];
             localStorage.setItem("piècesList", JSON.stringify(pieces));
             alert("Insertion réussite !");
