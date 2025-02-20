@@ -70,7 +70,7 @@ const handleRiveraine = (event) => {
             <input type="text" class="form-control"  placeholder="Largeur" id="largeur"  required>
             <input type="text" class="form-control w-100"  placeholder="Nombre des niveaux" id="étages"  required>
         `;
-        riveraineContainer.innerHTML += `
+        riveraineContainer.innerHTML = `
              <input type="text" id="mtriveraine" class="form-control w-50" placeholder="Montant de la taxe riveraine" required>
         `;
 
@@ -79,6 +79,7 @@ const handleRiveraine = (event) => {
             <input type="text" class="form-control" id="motif" placeholder="Motif de dispense">
         `;
         surfaceContainer.innerHTML = "";
+        riveraineContainer.innerHTML = "";
     }
 }
 
