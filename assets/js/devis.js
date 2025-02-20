@@ -350,10 +350,10 @@ worksheet.mergeCells("A12:D12");
     for(let i=16; i<= lastRowIndex; i++){
         worksheet.getCell(`A${i}`).alignment = { horizontal : "left",  vertical: "middle",  wrapText: true };
     };
-    // const liste = [0,2,3,4];
-    // liste.forEach(n => {
-    //     worksheet.mergeCells(`A${lastRowIndex - n}:C${lastRowIndex - n}`);
-    // });
+    const liste = [0,2,3,4];
+    liste.forEach(n => {
+        worksheet.mergeCells(`A${lastRowIndex - n}:C${lastRowIndex - n}`);
+    });
    
 
     worksheet.columns.forEach((col,index) => {
