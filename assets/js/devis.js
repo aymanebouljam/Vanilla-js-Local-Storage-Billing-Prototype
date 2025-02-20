@@ -22,6 +22,9 @@ const handleDevis = () => {
     let installationPrise;
     let tva;
     let frais_intervention;
+    let confection;
+    let porte;
+    let pose;
     let somme = 0;
     if(elements){
         elements.forEach(element => {
@@ -34,6 +37,15 @@ const handleDevis = () => {
                     break;
                 case element.designation.toLowerCase().includes("Frais intervention".toLowerCase()):
                     frais_intervention = element.valeur;
+                    break;
+                case element.designation.toLowerCase().includes("Confection de niche GM".toLowerCase()):
+                    confection = element.valeur;
+                    break;
+                case element.designation.toLowerCase().includes("Porte de niche GM".toLowerCase()):
+                    porte = element.valeur;
+                    break;
+                case element.designation.toLowerCase().includes("POSE Appareils".toLowerCase()):
+                    pose = element.valeur;
                     break;
                 default:
                     break;
@@ -63,6 +75,23 @@ const handleDevis = () => {
             
         
              tdevis.innerHTML += `
+               <tr>
+                    <td>Confection de niche GM</td>
+                    <td>1</td>
+                    <td>${confection.toFixed(2)}</td>     
+                    <td>${confection.toFixed(2)}</td>
+                </tr>  
+                <tr>
+                    <td>Porte de niche GM</td>
+                    <td>${data.porteNiche}</td>
+                    <td>${porte.toFixed(2)}</td>     
+                    <td>${(data.porteNiche * porte).toFixed(2)}</td>
+                </tr>  <tr>
+                    <td>POSE Appareils</td>
+                    <td>${data.poseAppareils}</td>
+                    <td>${pose.toFixed(2)}</td>     
+                    <td>${(data.poseAppareils * pose).toFixed(2)}</td>
+                </tr>
                 <tr>
                     <td>Installation de la prise</td>
                     <td>${data.objet === "déplacement de la niche" ? 0 : 1}</td>
