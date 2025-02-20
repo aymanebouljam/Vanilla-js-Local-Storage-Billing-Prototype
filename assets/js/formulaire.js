@@ -91,11 +91,12 @@ const handleForm = (event) => {
     const largeur = document.getElementById("largeur");
     const étages = document.getElementById("étages");
   
-
-    if(compteur && Number(compteur.value) == 0){
-        alert("Veuillez saisir le nombre des compteurs");
-        return;
-    };
+let poseAppareils = 0;
+  if(objet.value === "déplacement de la niche"){
+        poseAppareils = 1;
+  }else{
+        poseAppareils = compteur ? compteur + 1 : 3;
+  }
 
     const formData = {
         nom : nom.value,
@@ -104,6 +105,7 @@ const handleForm = (event) => {
         typeBranch : typeBranch ? typeBranch.value : "déplacement de la niche",
         police : police ? police.value : "",
         compteur : compteur ? Number(compteur.value) : 2,
+        poseAppareils : poseAppareils,
         riveraine : Number(riveraine.value),
         mtriveraine : Number(mtriveraine.value),
         motif : motif ? motif.value : "",

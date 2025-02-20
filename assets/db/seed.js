@@ -49,6 +49,7 @@ const seedFees = () => {
             {designation:'Installation de la prise', valeur : 191.37},
             {designation: 'Tva', valeur : 0.20},
             {designation:'Frais intervention', valeur : 0.15},
+            {designation : 'Confection de Niche GM', valeur : 155.77}
         ];
             localStorage.setItem('fixe', JSON.stringify(elements));
         
