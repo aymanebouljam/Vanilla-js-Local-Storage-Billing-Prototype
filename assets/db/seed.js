@@ -16,7 +16,6 @@ const seedPieces = () => {
             { "designation": "Couvercle tabernacle", "prix_unitaire": 7.50 },
             { "designation": "Tube PVC 6K DN 75", "prix_unitaire": 11.75 },
             { "designation": "Bouche a clé", "prix_unitaire": 52.09 },
-            { "designation": "Porte de niche GM", "prix_unitaire": 146.36 },
             { "designation": "Raccord SRM L 20*1/2", "prix_unitaire": 19.90 },
             { "designation": "Raccord SRM L 25*1/2", "prix_unitaire": 21.58 },
             { "designation": "Raccord SRM L 25*3/4", "prix_unitaire": 19.56 },
@@ -49,7 +48,8 @@ const seedFees = () => {
             {designation: 'Tva', valeur : 0.20},
             {designation:'Frais intervention', valeur : 0.15},
             {designation : 'Confection de Niche GM', valeur : 155.77},
-            {designation: "POSE Appareils", "prix_unitaire": 133.56 },
+            {designation: "POSE Appareils", valeur: 133.56 },
+            {designation: "Porte de niche GM", valeur: 146.36 },
         ];
             localStorage.setItem('fixe', JSON.stringify(elements));
         

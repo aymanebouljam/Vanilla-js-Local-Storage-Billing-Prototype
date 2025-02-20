@@ -106,7 +106,7 @@ let poseAppareils = 0;
         poseAppareils = 1;
    
   }else{
-        poseAppareils = compteur ? compteur + 1 : 3;
+        poseAppareils = compteur ? Number(compteur) + 1 : 3;
   }
 
     const formData = {
