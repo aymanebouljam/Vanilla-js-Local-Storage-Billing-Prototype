@@ -98,6 +98,7 @@ const handleForm = (event) => {
     const longueur = document.getElementById("longueur");
     const largeur = document.getElementById("largeur");
     const étages = document.getElementById("étages");
+    const porteNiche = document.getElementById("porteNiche");
 
 
 let poseAppareils = 0;
@@ -122,6 +123,7 @@ let poseAppareils = 0;
         longueur : longueur ? Number(longueur.value) : "",
         largeur : largeur ? Number(largeur.value) : "",
         étages : étages ? parseInt(étages.value) : "",
+        porteNiche : porteNiche.checked ? 1 : 0,
     }
     localStorage.setItem("data", JSON.stringify(formData));
     window.location.href = "table.html";
