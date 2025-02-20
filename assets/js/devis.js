@@ -58,6 +58,7 @@ const handleDevis = () => {
             const ht = somme + installationPrise;
             const intervention =  ht * frais_intervention;
             const montant_tva = (ht + (ht * frais_intervention)) * tva;
+            const superficie = Math.sqrt(longueur * largeur);
             total = ht + intervention + montant_tva + (riveraine * mtriveraine);
             
         
@@ -87,9 +88,9 @@ const handleDevis = () => {
                     <td>${montant_tva.toFixed(2)}</td>
                 </tr>
                  <tr>
-                    <td>Taxe riveraine: ${riveraine === 0 ? (motif ? `Réglée par ${motif}` : "") : `${longueur.toFixed(2)} x ${largeur.toFixed(2)} ${étages === 0 ? "RDC" : `R+${étages}` }` }</td>
-                    <td>${riveraine == 0 ? 0 : riveraine.toFixed(2)}</td>
-                    <td></td>
+                    <td>Taxe riveraine: ${riveraine === 0 ? (motif ? `Réglée par ${motif}` : "") : `${longueur.toFixed(2)} x ${largeur.toFixed(2)} ${étages === 1 ? "RDC" : `R+${étages - 1}` }` }</td>
+                    <td>${riveraine == 0 ? 0 : superficie.toFixed(2) }</td>
+                    <td>${riveraine == 0 ? 0 : (mtriveraine / superficie).toFixed(2)}</td>
                     <td>${mtriveraine.toFixed(2)}</td>       
                 </tr>
                 <tr>
