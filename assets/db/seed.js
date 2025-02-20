@@ -32,7 +32,6 @@ const seedPieces = () => {
             { "designation": "Confection de Niche GM", "prix_unitaire": 155.77 },
             { "designation": "Pose Tuyau pol HD 25", "prix_unitaire": 26.70 },
             { "designation": "Pose Tuyau pol HD 50", "prix_unitaire": 26.70 },
-            { "designation": "POSE Appareils", "prix_unitaire": 133.56 },
           ];
             localStorage.setItem("piècesList", JSON.stringify(pieces));
             alert("Insertion réussite !");
@@ -49,7 +48,8 @@ const seedFees = () => {
             {designation:'Installation de la prise', valeur : 191.37},
             {designation: 'Tva', valeur : 0.20},
             {designation:'Frais intervention', valeur : 0.15},
-            {designation : 'Confection de Niche GM', valeur : 155.77}
+            {designation : 'Confection de Niche GM', valeur : 155.77},
+            {designation: "POSE Appareils", "prix_unitaire": 133.56 },
         ];
             localStorage.setItem('fixe', JSON.stringify(elements));
         
