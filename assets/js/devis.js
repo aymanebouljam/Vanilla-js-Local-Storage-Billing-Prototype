@@ -11,7 +11,6 @@ let total = 0;
 //handle devis table
 const handleDevis = () => {
     const data = JSON.parse(localStorage.getItem("data"));
-    const riveraine = data.riveraine;
     const mtriveraine = data.mtriveraine;
     const longueur = data.longueur;
     const largeur= data.largeur;
@@ -26,6 +25,7 @@ const handleDevis = () => {
     let porte;
     let pose;
     let somme = 0;
+
     if(elements){
         elements.forEach(element => {
             switch(true){
@@ -38,7 +38,7 @@ const handleDevis = () => {
                 case element.designation.toLowerCase().includes("Frais intervention".toLowerCase()):
                     frais_intervention = element.valeur;
                     break;
-                case element.designation.toLowerCase().includes("Confection de niche GM".toLowerCase()):
+                case element.designation.toLowerCase().includes('Confection de Niche GM'.toLowerCase()):
                     confection = element.valeur;
                     break;
                 case element.designation.toLowerCase().includes("Porte de niche GM".toLowerCase()):
@@ -67,12 +67,16 @@ const handleDevis = () => {
             `;
                 somme += Number(item.prix_unitaire) * Number(item.quantité);
             });
-            const ht = somme + installationPrise;
+        }
+    
+            const ht = somme + confection + (data.porteNiche === 1 ? porte : 0) + (data.poseAppareils * pose) + (data.objet === "déplacement de la niche" ? 0 : installationPrise);
+           
             const intervention =  ht * frais_intervention;
             const montant_tva = (ht + (ht * frais_intervention)) * tva;
             const superficie = Math.sqrt(longueur * largeur);
-            total = ht + intervention + montant_tva + (riveraine * mtriveraine);
+            total = ht + intervention + montant_tva + mtriveraine;
             
+
         
              tdevis.innerHTML += `
                <tr>
@@ -80,29 +84,36 @@ const handleDevis = () => {
                     <td>1</td>
                     <td>${confection.toFixed(2)}</td>     
                     <td>${confection.toFixed(2)}</td>
-                </tr>  
-                <tr>
+                </tr>
+                ${
+                    data.porte === 1 && `<tr>
                     <td>Porte de niche GM</td>
                     <td>${data.porteNiche}</td>
                     <td>${porte.toFixed(2)}</td>     
                     <td>${(data.porteNiche * porte).toFixed(2)}</td>
-                </tr>  <tr>
+                </tr> `
+                }
+                <tr>
                     <td>POSE Appareils</td>
                     <td>${data.poseAppareils}</td>
                     <td>${pose.toFixed(2)}</td>     
                     <td>${(data.poseAppareils * pose).toFixed(2)}</td>
                 </tr>
-                <tr>
-                    <td>Installation de la prise</td>
-                    <td>${data.objet === "déplacement de la niche" ? 0 : 1}</td>
-                    <td>${installationPrise.toFixed(2)}</td>     
-                    <td>${installationPrise.toFixed(2)}</td>
-                </tr>
+                ${
+                    data.objet !== "déplacement de la niche" && 
+                    `  <tr>
+                        <td>Installation de la prise</td>
+                        <td>${data.objet === "déplacement de la niche" ? 0 : 1}</td>
+                        <td>${installationPrise.toFixed(2)}</td>     
+                        <td>${installationPrise.toFixed(2)}</td>
+                    </tr>
+                    `
+                }
                 <tr>
                     <td>Total HT</td>
                     <td></td>
                     <td></td>
-                    <td>${(somme + installationPrise).toFixed(2)}</td>
+                    <td>${(ht).toFixed(2)}</td>
                 </tr>
                 <tr>
                     <td>Frais d'intervention (${frais_intervention * 100}%)</td>
@@ -117,9 +128,9 @@ const handleDevis = () => {
                     <td>${montant_tva.toFixed(2)}</td>
                 </tr>
                  <tr>
-                    <td>Taxe riveraine: ${riveraine === 0 ? (motif ? `Réglée par ${motif}` : "") : `${longueur.toFixed(2)} x ${largeur.toFixed(2)} ${étages === 1 ? "RDC" : `R+${étages - 1}` }` }</td>
-                    <td>${riveraine == 0 ? 0 : superficie.toFixed(2) }</td>
-                    <td>${riveraine == 0 ? 0 : (mtriveraine / superficie).toFixed(2)}</td>
+                    <td>Taxe riveraine: ${!mtriveraine ? (motif ? `Réglée par ${motif}` : "") : `${longueur.toFixed(2)} x ${largeur.toFixed(2)} ${étages === 1 ? "RDC" : `R+${étages - 1}` }` }</td>
+                    <td>${!mtriveraine ? 0 : superficie.toFixed(2) }</td>
+                    <td>${!mtriveraine ? 0 : (mtriveraine/superficie.toFixed(2)).toFixed(2)}</td>
                     <td>${mtriveraine.toFixed(2)}</td>       
                 </tr>
                 <tr>
@@ -133,7 +144,7 @@ const handleDevis = () => {
         }
     }
    
-}
+
 window.onload = () => {
     checkData();
     handleDevis();
@@ -339,10 +350,10 @@ worksheet.mergeCells("A12:D12");
     for(let i=16; i<= lastRowIndex; i++){
         worksheet.getCell(`A${i}`).alignment = { horizontal : "left",  vertical: "middle",  wrapText: true };
     };
-    const liste = [0,2,3,4];
-    liste.forEach(n => {
-        worksheet.mergeCells(`A${lastRowIndex - n}:C${lastRowIndex - n}`);
-    });
+    // const liste = [0,2,3,4];
+    // liste.forEach(n => {
+    //     worksheet.mergeCells(`A${lastRowIndex - n}:C${lastRowIndex - n}`);
+    // });
    
 
     worksheet.columns.forEach((col,index) => {
@@ -383,7 +394,7 @@ function handleExportToPDF() {
     const police = data.police;
     const typeBranch = data.typeBranch;
     const compteur = data.compteur;
-    const nourice = typeBranch === "déplacement de la niche" ? "" : `nourice à ${compteur} ${compteur > 1 ? "compteurs" : "compteur"}`;
+    const nourice = typeBranch === "déplacement de la niche" ? "" : `nourrice à ${compteur} ${compteur > 1 ? "compteurs" : "compteur"}`;
 
     const currentDate = new Date();
     const formattedDate = `${currentDate.getDate().toString().padStart(2, '0')}/${(currentDate.getMonth() + 1).toString().padStart(2, '0')}/${currentDate.getFullYear()}`;

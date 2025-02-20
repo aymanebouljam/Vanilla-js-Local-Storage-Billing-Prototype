@@ -92,7 +92,6 @@ const handleForm = (event) => {
     const typeBranch = document.getElementById("typeBranch");
     const compteur = document.getElementById("compteur");
     const police = document.getElementById("police");
-    const riveraine = document.getElementById("riveraine");
     const motif = document.getElementById("motif");
     const mtriveraine = document.getElementById("mtriveraine");
     const longueur = document.getElementById("longueur");
@@ -117,8 +116,7 @@ let poseAppareils = 0;
         police : police ? police.value : "",
         compteur : compteur ? Number(compteur.value) : 2,
         poseAppareils : poseAppareils,
-        riveraine : Number(riveraine.value),
-        mtriveraine : Number(mtriveraine.value),
+        mtriveraine : mtriveraine ? Number(mtriveraine.value) : 0,
         motif : motif ? motif.value : "",
         longueur : longueur ? Number(longueur.value) : "",
         largeur : largeur ? Number(largeur.value) : "",
@@ -126,5 +124,14 @@ let poseAppareils = 0;
         porteNiche : porteNiche.checked ? 1 : 0,
     }
     localStorage.setItem("data", JSON.stringify(formData));
-    window.location.href = "table.html";
+    if(objet.value === "déplacement de la niche"){
+        if(confirm("Voulez-vous ajouter des pièces supplémentaires ?")){
+            window.location.href = "table.html";
+        }else{
+            window.location.href = "devis.html";
+        }
+    }else{
+        window.location.href = "table.html";
+    }
+   
 };
