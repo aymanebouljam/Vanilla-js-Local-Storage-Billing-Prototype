@@ -3,6 +3,7 @@ const seedPieces = () => {
     if(confirm("Cette action va supprimer les données actuelles, voulez-vous continuer ?")){
         const pieces =[
             { "designation": "Collier AC PVC 60*20", "prix_unitaire": 75.01 },
+            { "designation": "Collier AC PVC 63*40", "prix_unitaire": 74.84 },
             { "designation": "Collier AC PVC 63*20", "prix_unitaire": 65.03 },
             { "designation": "Collier AC PVC 80*40", "prix_unitaire": 72.81 },
             { "designation": "Collier AC PVC 60*40", "prix_unitaire": 70.04 },
