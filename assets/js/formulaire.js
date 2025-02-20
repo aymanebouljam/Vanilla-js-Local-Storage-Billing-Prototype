@@ -118,9 +118,9 @@ let poseAppareils = 0;
         poseAppareils : poseAppareils,
         mtriveraine : mtriveraine ? Number(mtriveraine.value) : 0,
         motif : motif ? motif.value : "",
-        longueur : longueur ? Number(longueur.value) : "",
-        largeur : largeur ? Number(largeur.value) : "",
-        étages : étages ? parseInt(étages.value) : "",
+        longueur : longueur ? Number(longueur.value) : 0,
+        largeur : largeur ? Number(largeur.value) : 0,
+        étages : étages ? parseInt(étages.value) : 0,
         porteNiche : porteNiche.checked ? 1 : 0,
     }
     localStorage.setItem("data", JSON.stringify(formData));
