@@ -192,7 +192,7 @@ function handleExportTable() {
     const police = data.police;
     const typeBranch = data.typeBranch;
     const compteur = data.compteur;
-    const nourice = typeBranch === "déplacement de la niche" ? "" : `nourice à ${compteur} ${compteur > 1 ?"compteurs" : "compteur"}`;
+    const nourice = typeBranch === "déplacement de la niche" ? "" : `nourrice à ${compteur} ${compteur > 1 ?"compteurs" : "compteur"}`;
 
     const currentDate = new Date();
     const year = `${currentDate.getDate().toString().padStart(2, '0')}/${(currentDate.getMonth() + 1).toString().padStart(2, '0')}/${currentDate.getFullYear()}`;

@@ -38,6 +38,8 @@ const handleSelect = (event) => {
         policeContainer.innerHTML = ` 
         <input type="text" placeholder="N° de Police" class="form-control" id="police" required>
         `;
+        compteurContainer.innerHTML = "";
+
     }
 };
 
@@ -59,11 +61,11 @@ const handleType = (event) => {
 
 //handle riveraine
 const handleRiveraine = (event) => {
-    const reviraine = Number(event.target.value);
+    const reviraine = event.target;
     const motifContainer = document.getElementById("motifContainer");
     const surfaceContainer = document.getElementById("surfaceContainer");
     const riveraineContainer = document.getElementById("riveraineContainer");
-    if(reviraine !== 0){
+    if(reviraine.checked){
         motifContainer.innerHTML = "";
         surfaceContainer.innerHTML = `
             <input type="text" class="form-control" placeholder="Longueur" id="longueur" required>
@@ -74,7 +76,7 @@ const handleRiveraine = (event) => {
              <input type="text" id="mtriveraine" class="form-control w-50" placeholder="Montant de la taxe riveraine" required>
         `;
 
-    }else if(reviraine == 0){
+    }else if(!reviraine.checked){
         motifContainer.innerHTML = `
             <input type="text" class="form-control" id="motif" placeholder="Motif de dispense">
         `;
@@ -96,10 +98,12 @@ const handleForm = (event) => {
     const longueur = document.getElementById("longueur");
     const largeur = document.getElementById("largeur");
     const étages = document.getElementById("étages");
-  
+
+
 let poseAppareils = 0;
   if(objet.value === "déplacement de la niche"){
         poseAppareils = 1;
+   
   }else{
         poseAppareils = compteur ? compteur + 1 : 3;
   }
