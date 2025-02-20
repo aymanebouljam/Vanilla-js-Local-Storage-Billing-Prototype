@@ -62,13 +62,18 @@ const handleRiveraine = (event) => {
     const reviraine = Number(event.target.value);
     const motifContainer = document.getElementById("motifContainer");
     const surfaceContainer = document.getElementById("surfaceContainer");
+    const riveraineContainer = document.getElementById("riveraineContainer");
     if(reviraine !== 0){
         motifContainer.innerHTML = "";
         surfaceContainer.innerHTML = `
             <input type="text" class="form-control" placeholder="Longueur" id="longueur" required>
             <input type="text" class="form-control"  placeholder="Largeur" id="largeur"  required>
-            <input type="text" class="form-control w-100"  placeholder="Nombre des étages" id="étages"  required>
+            <input type="text" class="form-control w-100"  placeholder="Nombre des niveaux" id="étages"  required>
         `;
+        riveraineContainer.innerHTML += `
+             <input type="text" id="mtriveraine" class="form-control w-50" placeholder="Montant de la taxe riveraine" required>
+        `;
+
     }else if(reviraine == 0){
         motifContainer.innerHTML = `
             <input type="text" class="form-control" id="motif" placeholder="Motif de dispense">

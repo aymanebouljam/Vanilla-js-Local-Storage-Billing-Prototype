@@ -64,7 +64,7 @@ const handleDevis = () => {
              tdevis.innerHTML += `
                 <tr>
                     <td>Installation de la prise</td>
-                    <td>1</td>
+                    <td>${data.objet === "déplacement de la niche" ? 0 : 1}</td>
                     <td>${installationPrise.toFixed(2)}</td>     
                     <td>${installationPrise.toFixed(2)}</td>
                 </tr>
@@ -89,8 +89,8 @@ const handleDevis = () => {
                  <tr>
                     <td>Taxe riveraine: ${riveraine === 0 ? (motif ? `Réglée par ${motif}` : "") : `${longueur.toFixed(2)} x ${largeur.toFixed(2)} ${étages === 0 ? "RDC" : `R+${étages}` }` }</td>
                     <td>${riveraine == 0 ? 0 : riveraine.toFixed(2)}</td>
-                    <td>${mtriveraine.toFixed(2)}</td>
-                    <td>${(riveraine * mtriveraine).toFixed(2)}</td>       
+                    <td></td>
+                    <td>${mtriveraine.toFixed(2)}</td>       
                 </tr>
                 <tr>
                     <td>TOTAL GÉNÉRAL TTC</td>
