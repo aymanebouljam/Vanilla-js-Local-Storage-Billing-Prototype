@@ -24,6 +24,12 @@ A JavaScript-based application designed for a local water department to manage w
    cd Billing-app-js-version
    ```
 3. **Open the index.html file in your browser to start using the app:** You can simply double-click the index.html file, or open it from your browser's "Open File" dialog to launch the app locally.
+4. **Seed the local storage:**  
+   - Open your browser and visit:  
+     ```bash
+     /assets/db/seed.html
+     ```
+   - Click on the **"pièces"** and **"frais"** buttons to populate the local storage with necessary data.
 
 ## Usage
 - **Input Service Details:** Enter customer information, water connection type in the provided fields.
