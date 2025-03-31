@@ -17,11 +17,11 @@ A JavaScript-based application designed for a local water department to manage w
 ## Installation
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/aymanebouljam/Billing-app-js-version.git
+   git clone https://github.com/aymanebouljam/Water-billing-vanilla-js.git
    ```
 2. **Navigate to the project folder:**
    ```bash
-   cd Billing-app-js-version
+   cd Water-billing-vanilla-js
    ```
 3. **Open the index.html file in your browser to start using the app:** You can simply double-click the index.html file, or open it from your browser's "Open File" dialog to launch the app locally.
 4. **Seed the local storage:**  
